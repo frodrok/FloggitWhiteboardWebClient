@@ -29,11 +29,12 @@ ul {
     list-style: none;
 }
 
-.label-color span {
-    display: block;
+.label-color {
+    display: inline-flex;
     background: yellow;
     width: 42px;
     height: 8px;
     line-height: 75pt;
     border-radius: 3px;
+    margin: 0 3px 3px 0;
 }
