@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8"/>
+    <title>Floggit</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/bootstrap-cyborg.css">
+    <link rel="stylesheet" href="css/master.css">
+</head>
+
+<body>
+
+<div class="note-container">
+    <h2>Floggit Whiteboard</h2>
+    <input type="text" id="itemName" placeholder="Title">
+    <button type="button" id="button" class="btn btn-primary">add note</button>
+    <ul class="list-group"></ul>
+</div>
+
+<form class="form-horizontal">
+    <fieldset>
+        <legend>Floggit</legend>
+        <div class="form-group">
+            <label for="inputTitle" class="col-lg-2 control-label">Title</label>
+            <div class="col-lg-10">
+                <input type="text" class="form-control" id="inputTitle" placeholder="Title"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="description" class="col-lg-2 control-label">Description</label>
+            <div class="col-lg-10">
+                <textarea class="form-control" id="description" placeholder="Description"></textarea>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="color" class="col-lg-2 control-label">Color</label>
+            <div class="col-lg-10">
+                <select class="form-control" id="color">
+                    <option>Blue</option>
+                    <option>Green</option>
+                    <option>Pink</option>
+                    <option>Orange</option>
+                    <option>Red</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-lg-10 col-lg-offset-2">
+                <button type="submit" class="btn btn-primary">Save</button>
+                <button type="reset" class="btn btn-default">Cancel</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+
+<div class="post-it panel panel-default">
+    <div class="panel-body">
+        <ul class="label-color-list">
+            <li class="label-color"></li> <!--this is a test element-->
+            <li class="label-color"></li> <!--this is a test element-->
+        </ul>
+        <p class="title">Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+        <div class="col-lg-10 col-lg-offset-2">
+            <button class="edit-button btn btn-default btn-xs">Edit</button>
+            <button class="delete-button btn btn-danger btn-xs">Delete</button>
+        </div>
+    </div>
+</div>
+
+</body>
+
+</html>
