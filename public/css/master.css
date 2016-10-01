@@ -25,10 +25,6 @@
     width: 254px;
 }
 
-ul {
-    list-style: none;
-}
-
 .label-color {
     display: inline-flex;
     background: yellow;
