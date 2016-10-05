@@ -4,13 +4,26 @@
 <head>
     <meta charset="utf-8"/>
     <title>Floggit</title>
-    <link rel="stylesheet" href="css/reset.css">
-    <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cyborg/bootstrap.min.css" rel="stylesheet" integrity="sha384-D9XILkoivXN+bcvB2kSOowkIvIcBbNdoDQvfBNsxYAIieZbx8/SI4NeUvrRGCpDi" crossorigin="anonymous">
-    <!--<link rel="stylesheet" href="css/bootstrap-cyborg.css">-->
-    <link rel="stylesheet" href="css/master.css">
+s    <!--<link rel="stylesheet" href="../src/css/reset.css">-->
+    <!--<link rel="stylesheet" href="../src/css/bootstrap-cyborg.css">-->
+    <!--<link rel="stylesheet" href="../src/css/master.css">-->
+    <link rel="stylesheet" href="./css/master.css" />
 </head>
 
 <body>
+
+<section class="header">
+
+    <center><h1>Floggit Whiteboard</h1></center>
+
+</section>
+
+<section class="body">
+
+    <div id="container">
+    </div>
+
+</section>
 
 <div class="note-container">
     <h2>Floggit Whiteboard</h2>
@@ -58,20 +71,23 @@
     </fieldset>
 </form>
 
-<div class="post-it panel panel-default">
-    <div class="panel-body">
-        <ul class="label-color-list">
-            <li class="label-color"></li> <!--this is a test element-->
-            <li class="label-color"></li> <!--this is a test element-->
-        </ul>
-        <p class="title">Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
-        <div class="col-lg-10 col-lg-offset-2">
-            <button class="edit-button btn btn-default btn-xs">Edit</button>
-            <button class="delete-button btn btn-danger btn-xs">Delete</button>
-        </div>
-    </div>
-</div>
+ <!--html for postit, now in react component -->
+<!--<div class="post-it panel panel-default">-->
+    <!--<div class="panel-body">-->
+        <!--<ul class="label-color-list">-->
+            <!--<li class="label-color"></li> &lt;!&ndash;this is a test element&ndash;&gt;-->
+            <!--<li class="label-color"></li> &lt;!&ndash;this is a test element&ndash;&gt;-->
+        <!--</ul>-->
+        <!--<p class="title">Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>-->
+        <!--<div class="col-lg-10 col-lg-offset-2">-->
+            <!--<button class="edit-button btn btn-default btn-xs">Edit</button>-->
+            <!--<button class="delete-button btn btn-danger btn-xs">Delete</button>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
 
+
+    <script src="./js/todo.bundle.js"></script>
 </body>
 
 </html>
