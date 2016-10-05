@@ -1,12 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Whiteboard from './components/whiteboard';
 
-const FirstElement = React.createClass({
-   render: () => {
-       return (
-           <h1>Ululululululul wololoooo</h1>
-       );
-   }
-});
-
-ReactDOM.render(<FirstElement />, document.querySelector('#container'));
+ReactDOM.render(<Whiteboard />, document.querySelector('#container'));
