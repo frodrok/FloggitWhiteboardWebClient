@@ -7,7 +7,7 @@ var React = require('react');
 var ReactDOM = require('react-dom/server');
 var DOM = React.DOM, body = DOM.body, div = DOM.div, script = DOM.script;
 
-var App = React.createFactory(require('./src/js/components/addPostIt'));
+var App = React.createFactory(require('./src/js/components/addPostItButton'));
 
 app.use('/', express.static(path.join(__dirname, 'public')));
 app.use('/nodetest', express.static(path.join(__dirname, 'public/n')));
