@@ -20,7 +20,8 @@ gulp.task('browserSync', () =>
 );
 
 gulp.task('css', () =>
-    gulp.src(['./src/css/bootstrap-slate.css', './src/css/default.css'])
+    // gulp.src(['./src/css/bootstrap-slate.css', './src/css/default.css'])
+    gulp.src(['./src/css/bootstrap-cyborg.css', './src/css/reset.css', './src/css/master.css'])
         .pipe(sourcemaps.init())
         .pipe(autoprefixer())
         .pipe(concat('master.css'))
