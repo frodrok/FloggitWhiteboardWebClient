@@ -1,15 +1,26 @@
-.note-container {
+h2, #add-post-it-button, fieldset, .card-container, .post-it, .extra-info-list {
     margin: 10px;
 }
 
-.form-horizontal {
+fieldset {
     width: 500px;
-    margin: 10px;
+}
+
+.card-container, .post-it {
+    width: 254px;
 }
 
 #description {
-    margin: 0 -0.667614px 0 0;
     height: 243px;
+}
+
+.note-input {
+    display: flex;
+    flex-direction: row;
+}
+
+#note-item {
+    width: 100%;
 }
 
 .col-lg-offset-2 button {
@@ -17,20 +28,41 @@
     margin-left: 10px;
 }
 
-.note-container button {
-    margin-left: 7px;
-}
-
-.post-it {
-    width: 254px;
+#add-note-button {
+    margin-left: 5px;
 }
 
 .label-color {
     display: inline-flex;
-    background: yellow;
+    background: pink;
     width: 42px;
     height: 8px;
     line-height: 75pt;
     border-radius: 3px;
     margin: 0 3px 3px 0;
+}
+
+ul {
+    list-style: disc;
+}
+
+.note-container .panel-body {
+    background: #ffffff;
+    border-radius: 4px;
+}
+
+.note-container-body .list-group, #note-label {
+    margin-bottom: 0;
+}
+
+.note-list {
+    margin-top: 10px;
+}
+
+.note span {
+    background-color: #cc0000;
+}
+
+.note {
+    background-color: #ffffff;
 }

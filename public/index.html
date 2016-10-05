@@ -5,19 +5,16 @@
     <meta charset="utf-8"/>
     <title>Floggit</title>
     <link rel="stylesheet" href="css/reset.css">
-    <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cyborg/bootstrap.min.css" rel="stylesheet" integrity="sha384-D9XILkoivXN+bcvB2kSOowkIvIcBbNdoDQvfBNsxYAIieZbx8/SI4NeUvrRGCpDi" crossorigin="anonymous">
+    <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cyborg/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-D9XILkoivXN+bcvB2kSOowkIvIcBbNdoDQvfBNsxYAIieZbx8/SI4NeUvrRGCpDi" crossorigin="anonymous">
     <!--<link rel="stylesheet" href="css/bootstrap-cyborg.css">-->
     <link rel="stylesheet" href="css/master.css">
 </head>
 
 <body>
 
-<div class="note-container">
-    <h2>Floggit Whiteboard</h2>
-    <input type="text" id="itemName" placeholder="Title">
-    <button type="button" id="button" class="btn btn-primary btn-sm">add note</button>
-    <ul class="list-group"></ul>
-</div>
+<h2>Floggit Whiteboard</h2>
+<button type="button" id="add-post-it-button" class="btn btn-primary">Add post-it</button>
 
 <form class="form-horizontal">
     <fieldset>
@@ -44,8 +41,27 @@
                     <option>Green</option>
                     <option>Pink</option>
                     <option>Orange</option>
-                    <option>Red</option>
                 </select>
+            </div>
+        </div>
+
+        <label for="note-item" id="note-label">Note</label>
+        <div class="note-container panel panel-default">
+            <div class="note-container-body panel-body">
+                <div class="note-input">
+                    <input type="text" id="note-item" placeholder="Note">
+                    <button type="button" id="add-note-button" class="btn btn-primary btn-sm">Add</button>
+                </div>
+                <ul class="list-group note-list">
+                    <li class="list-group-item note"> <!--this is a test element-->
+                        <span class="badge">X</span>
+                        Note 1
+                    </li>
+                    <li class="list-group-item note"> <!--this is a test element-->
+                        <span class="badge">X</span>
+                        Note 2
+                    </li>
+                </ul>
             </div>
         </div>
 
@@ -65,6 +81,10 @@
             <li class="label-color"></li> <!--this is a test element-->
         </ul>
         <p class="title">Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+        <ul class="extra-info-list">
+            <li>Note 1</li> <!--this is a test element-->
+            <li>Note 2</li> <!--this is a test element-->
+        </ul>
         <div class="col-lg-10 col-lg-offset-2">
             <button class="edit-button btn btn-default btn-xs">Edit</button>
             <button class="delete-button btn btn-danger btn-xs">Delete</button>
