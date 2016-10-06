@@ -17,4 +17,3 @@ const Top = React.createClass({
 ReactDOM.render(<Top />, document.querySelector('.header'));
 // ReactDOM.render(top, document.querySelector('.header'));
 ReactDOM.render(<Whiteboard />, document.querySelector('#container'));
-

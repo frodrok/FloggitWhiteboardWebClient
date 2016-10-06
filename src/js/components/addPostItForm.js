@@ -1,6 +1,6 @@
 import React from 'react';
 
-module.exports = () => <form className="form-horizontal">
+const AddPostItForm = () => <form className="form-horizontal">
   <fieldset>
     <legend>Floggit</legend>
     <div className="form-group">

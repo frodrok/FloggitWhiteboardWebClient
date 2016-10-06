@@ -3,15 +3,14 @@ import ReactDOM from 'react-dom';
 import AddPostItForm from './addPostItForm';
 import EditDialogue from './editDialogue';
 
-const item = {
-  title: 'diska',
-  text: 'fixa disken',
-  timeCreated: '2016-10-05 11:10',
-  color: 'blue'
-};
+// const item = {
+//   title: 'diska',
+//   text: 'fixa disken',
+//   timeCreated: '2016-10-05 11:10',
+//   color: 'blue'
+// };
 
 function showEditDialogue() {
-  ReactDOM.render(<AddPostItForm />, document.querySelector('#container'));
   console.log('hej');
 }
 
@@ -28,7 +27,8 @@ const PostIt = props => (
 );
 
 PostIt.propTypes = () => ({
-  data: React.PropTypes.string.isRequired
+  data: React.PropTypes.shape.isRequired
 });
+
 
 export default PostIt;
