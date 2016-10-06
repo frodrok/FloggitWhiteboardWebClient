@@ -9,24 +9,16 @@
     "ejs": "^2.5.2",
     "express": "^4.14.0",
     "http": "^0.0.0",
+    "jquery": "^3.1.1",
     "path": "^0.12.7",
     "react": "^15.3.2",
     "react-addons": "^0.9.1-deprecated",
     "react-bootstrap": "^0.30.3",
     "react-dom": "^15.3.2",
+    "react-modal": "^1.4.0",
     "react-router": "^2.8.1",
     "redux": "^3.6.0"
   },
-  "devDependencies": {},
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/frodrok/FloggitWhiteboardWebClient.git"
-  },
-  "author": "",
-  "license": "ISC",
   "devDependencies": {
     "babel-eslint": "^7.0.0",
     "babel-preset-es2015": "^6.14.0",
@@ -53,6 +45,15 @@
     "vinyl-transform": "^1.0.0",
     "watchify": "^3.7.0"
   },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/frodrok/FloggitWhiteboardWebClient.git"
+  },
+  "author": "",
+  "license": "ISC",
   "bugs": {
     "url": "https://github.com/frodrok/FloggitWhiteboardWebClient/issues"
   },

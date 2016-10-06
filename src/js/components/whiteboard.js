@@ -1,48 +1,47 @@
 import React from 'react';
+import $ from 'jquery';
+
 import PostIt from './postit';
 
-const data = [{
-	title: 'diska',
-	text: 'fixa disken',
-	timeCreated: '2016-10-05 11:10',
-	color: '#aaa'
-},
-	{
-		title: 'tvätta',
-		text: 'fixa tvätten',
-		timeCreated: '2016-10-05 11:20',
-		color: '#bbb'
-	},
-	{
-		title: 'smutsa',
-		text: 'fixa smutsen',
-		timeCreated: '2016-10-05 11:30',
-		color: '#ccc'
-	}];
+export default class Whiteboard extends React.Component {
 
-const rComps = [];
+  constructor(props) {
+    super(props);
+    this.apiUrl = 'http://localhost:8080/api/v1/postits';
+    this.state = { postIts: [] };
+  }
 
-// postIt: {
-// 	title: item.title,
-// 		text: item.text,
-// 		timeCreated: item.timeCreated,
-// 		color: item.color
-// }
+  componentDidMount() {
+    // lint fails, how do we bind 'this' when using fat arrow notation =>
+    // (result) => { }.bind(this); fails
+    this.serverRequest = $.get(this.apiUrl, function(result) {
+      const reactPostIts = this.serverDataToReactPostIts(result);
+      this.setState({ postIts: reactPostIts });
+    }.bind(this));
+  }
 
+  componentWillUnmount() {
+    this.serverRequest.abort();
+  }
 
-data.forEach(function (elem, index) {
-	// rComps.push(React.createElement(PostIt, { data: elem }));
-	rComps.push(<PostIt data={elem} key={index} />);
-});
+  serverDataToReactPostIts(jsonResult) {
+    const reactComponents = [];
 
-module.exports = React.createClass({
-	render: function () {
-		return (
-			<div className="jumbotron">
-				<div className="post-it panel panel-default">
-					{rComps}
-				</div>
-			</div>
-		);
-	}
-});
+    jsonResult.forEach((element, index) => {
+      reactComponents.push(<PostIt data={element} key={index} />);
+    });
+
+    return reactComponents;
+  }
+
+  render() {
+    return (
+      <div className="jumbotron">
+        <div className="post-it panel panel-default">
+          {this.state.postIts}
+        </div>
+      </div>
+    );
+  }
+}
+
