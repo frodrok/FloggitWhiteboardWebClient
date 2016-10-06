@@ -6,9 +6,10 @@ import AddPostItButton from './components/addPostItButton';
 
 const Top = React.createClass({
   render() {
-    return (
-      <TitleBar data={'floggit whiteboard'} />,
+    return (<div>
+      <TitleBar data={'FLOGGIT WHITEBOARD'} />
       <AddPostItButton />
+    </div>
     );
   }
 });
