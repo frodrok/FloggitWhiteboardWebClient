@@ -14,9 +14,11 @@ export default class Whiteboard extends React.Component {
   componentDidMount() {
     // lint fails, how do we bind 'this' when using fat arrow notation =>
     // (result) => { }.bind(this); fails
-    this.serverRequest = $.get(this.apiUrl, function(result) {
-      const reactPostIts = this.serverDataToReactPostIts(result);
-      this.setState({ postIts: reactPostIts });
+    this.serverRequest = $.get(this.apiUrl, function (result) {
+      console.log(result);
+      this.setState({
+        postIts: this.state.postIts.concat(result)
+      });
     }.bind(this));
   }
 
@@ -24,24 +26,15 @@ export default class Whiteboard extends React.Component {
     this.serverRequest.abort();
   }
 
-  serverDataToReactPostIts(jsonResult) {
-    const reactComponents = [];
-
-    jsonResult.forEach((element, index) => {
-      reactComponents.push(<PostIt data={element} key={index} />);
-    });
-
-    return reactComponents;
-  }
-
   render() {
     return (
       <div className="jumbotron">
         <div className="post-it panel panel-default">
-          {this.state.postIts}
+
+          {this.state.postIts.map(item => (
+            <PostIt data={item.postIt} />)) }
         </div>
       </div>
     );
   }
 }
-
