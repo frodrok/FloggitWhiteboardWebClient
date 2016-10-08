@@ -24,8 +24,7 @@ fieldset {
 }
 
 .col-lg-offset-2 button {
-    float: right;
-    margin-left: 10px;
+    margin-left: 5px;
 }
 
 #add-note-button {
@@ -46,10 +45,10 @@ ul {
     list-style: disc;
 }
 
-.note-container .panel-body {
-    background: #ffffff;
-    border-radius: 4px;
-}
+/*.note-container .panel-body {*/
+    /*background: #ffffff;*/
+    /*border-radius: 4px;*/
+/*}*/
 
 .note-container-body .list-group, #note-label {
     margin-bottom: 0;
@@ -63,6 +62,12 @@ ul {
     background-color: #cc0000;
 }
 
-.note {
+.note, #note-form .form-control {
     background-color: #ffffff;
+}
+
+.form-button {
+    width: 530px;
+    display: inline-flex;
+    justify-content: flex-end;
 }
