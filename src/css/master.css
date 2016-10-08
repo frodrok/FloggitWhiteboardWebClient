@@ -45,11 +45,6 @@ ul {
     list-style: disc;
 }
 
-/*.note-container .panel-body {*/
-    /*background: #ffffff;*/
-    /*border-radius: 4px;*/
-/*}*/
-
 .note-container-body .list-group, #note-label {
     margin-bottom: 0;
 }
