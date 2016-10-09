@@ -10,14 +10,14 @@ const EditDialogue = (props) => {
           <div className="form-group">
             <label htmlFor="inputTitle" className="col-lg-2 control-label">Title</label>
             <div className="col-lg-10">
-              <input type="text" className="form-control" id="inputTitle" placeholder={props.data.title} />
+              <input type="text" className="form-control" id="inputTitle" defaultValue={props.data.title} />
             </div>
           </div>
 
           <div className="form-group">
             <label htmlFor="description" className="col-lg-2 control-label">Description</label>
             <div className="col-lg-10">
-              <textarea className="form-control" id="description" placeholder={props.data.text} />
+              <textarea className="form-control" id="description" defaultValue={props.data.text} />
             </div>
           </div>
 
