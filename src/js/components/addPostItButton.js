@@ -1,6 +1,6 @@
 import React from 'react';
 import Modal from 'react-modal';
-import AddPostItForm from './addPostItForm';
+import PostItForm from './postItForm';
 
 const customStyles = {
   content: {
@@ -17,8 +17,7 @@ const customStyles = {
   }
 };
 
-export default class AddPostItButton extends React.Component {
-
+class AddPostItButton extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -53,6 +52,10 @@ export default class AddPostItButton extends React.Component {
     this.setState({ modalIsOpen: true });
   }
 
+  handleSaveFormInput() {
+    this.props.handleSaveFormInput();
+  }
+
   render() {
     return (
       <div>
@@ -65,19 +68,15 @@ export default class AddPostItButton extends React.Component {
           onRequestClose={this.closeModal}
           style={customStyles}
         >
-          <AddPostItForm />
-          <div className="form-group">
-            <div className="col-lg-10 col-lg-offset-2 form-button">
-              <div>
-                <button type="reset" className="btn btn-default" onClick={this.closeModal}>Cancel</button>
-              </div>
-              <div>
-                <button type="submit" className="btn btn-primary">Save</button>
-              </div>
-            </div>
-          </div>
+          <PostItForm closeModal={this.closeModal} handleSaveFormInput={this.handleSaveFormInput} />
         </Modal>
       </div>
     );
   }
 }
+
+AddPostItButton.propTypes = {
+  handleSaveFormInput: React.PropTypes.func
+};
+
+export default AddPostItButton;

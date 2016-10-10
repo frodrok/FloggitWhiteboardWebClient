@@ -20,5 +20,4 @@ PostIt.propTypes = () => ({
   data: React.PropTypes.shape.isRequired
 });
 
-
 export default PostIt;

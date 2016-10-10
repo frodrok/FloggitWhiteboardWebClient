@@ -1,9 +1,9 @@
 import React from 'react';
 import $ from 'jquery';
 
-import PostIt from './postit';
+import PostIt from './postIt';
 
-export default class Whiteboard extends React.Component {
+class Whiteboard extends React.Component {
 
   constructor(props) {
     super(props);
@@ -38,3 +38,9 @@ export default class Whiteboard extends React.Component {
     );
   }
 }
+
+PostIt.propTypes = {
+  componentDidMount: React.PropTypes.func
+};
+
+export default Whiteboard;

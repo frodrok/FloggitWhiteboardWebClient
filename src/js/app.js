@@ -1,20 +1,33 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Whiteboard from './components/whiteboard';
-import TitleBar from './components/titlebar';
-import AddPostItButton from './components/addPostItButton';
+import Header from './components/header';
 
-const Top = React.createClass({
+class Container extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      onSave: false
+    };
+    this.handleSaveFormInput = this.handleSaveFormInput.bind(this);
+  }
+
+  handleSaveFormInput() {
+    this.setState({ onSave: true });
+  }
+
   render() {
-    return (<div>
-      <TitleBar data={'FLOGGIT WHITEBOARD'} />
-      <AddPostItButton />
-    </div>
+    return (
+      <div>
+        <Header handleSaveFormInput={this.handleSaveFormInput} />
+        <Whiteboard onSave={this.state.onSave} />
+      </div>
     );
   }
-});
+}
 
-ReactDOM.render(<Top />, document.querySelector('.header'));
-// ReactDOM.render(top, document.querySelector('.header'));
-ReactDOM.render(<Whiteboard />, document.querySelector('#container'));
+Container.propTypes = {
+  handleSaveFormInput: React.PropTypes.func
+};
 
+ReactDOM.render(<Container />, document.querySelector('#container'));
