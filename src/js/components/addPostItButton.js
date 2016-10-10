@@ -8,12 +8,6 @@ const customStyles = {
     display: 'flex',
     flexWrap: 'wrap',
     width: '50%'
-    // top: '40%',
-    // left: '20%',
-    // right: 'auto',
-    // bottom: 'auto',
-    // marginRight: '-50%',
-    // transform: 'translate(-50%, -50%)'
   }
 };
 
@@ -65,17 +59,7 @@ export default class AddPostItButton extends React.Component {
           onRequestClose={this.closeModal}
           style={customStyles}
         >
-          <AddPostItForm />
-          <div className="form-group">
-            <div className="col-lg-10 col-lg-offset-2 form-button">
-              <div>
-                <button type="reset" className="btn btn-default" onClick={this.closeModal}>Cancel</button>
-              </div>
-              <div>
-                <button type="submit" className="btn btn-primary">Save</button>
-              </div>
-            </div>
-          </div>
+          <AddPostItForm closeModal={this.closeModal}/>
         </Modal>
       </div>
     );

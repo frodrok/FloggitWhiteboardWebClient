@@ -9,6 +9,7 @@ export default class Whiteboard extends React.Component {
     super(props);
     this.apiUrl = 'http://localhost:8080/api/v1/postits';
     this.state = { postIts: [] };
+    this.componentDidMount = this.componentDidMount.bind(this);
   }
 
   componentDidMount() {
@@ -24,6 +25,12 @@ export default class Whiteboard extends React.Component {
 
   componentWillUnmount() {
     this.serverRequest.abort();
+  }
+
+  addPostIt() {
+    if (this.state.onSave) {
+
+    }
   }
 
   render() {

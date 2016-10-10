@@ -1,6 +1,6 @@
 import React from 'react';
 
-const AddPostItForm = () => <form className="form-horizontal">
+const AddPostItForm = props => <form className="form-horizontal">
   <fieldset>
     <legend>Floggit</legend>
     <div className="form-group">
@@ -46,6 +46,16 @@ const AddPostItForm = () => <form className="form-horizontal">
           {/* Note 2*/}
           {/* </li> */}
         </ul>
+      </div>
+      <div className="form-group">
+        <div className="col-lg-10 col-lg-offset-2 form-button">
+          <div>
+            <button type="reset" className="btn btn-default" onClick={props.closeModal}>Cancel</button>
+          </div>
+          <div>
+            <button type="submit" className="btn btn-primary">Save</button>
+          </div>
+        </div>
       </div>
     </div>
   </fieldset>
