@@ -27,12 +27,6 @@ export default class Whiteboard extends React.Component {
     this.serverRequest.abort();
   }
 
-  addPostIt() {
-    if (this.state.onSave) {
-
-    }
-  }
-
   render() {
     return (
       <div className="jumbotron">

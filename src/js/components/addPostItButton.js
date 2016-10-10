@@ -59,7 +59,7 @@ export default class AddPostItButton extends React.Component {
           onRequestClose={this.closeModal}
           style={customStyles}
         >
-          <AddPostItForm closeModal={this.closeModal}/>
+          <AddPostItForm closeModal={this.closeModal} />
         </Modal>
       </div>
     );
