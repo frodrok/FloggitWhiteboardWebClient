@@ -15,8 +15,8 @@ const customStyles = {
 
 export default class AddPostItButton extends React.Component {
 
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       showForm: false,
       modalIsOpen: false
@@ -58,7 +58,7 @@ export default class AddPostItButton extends React.Component {
         onRequestClose={this.closeModal}
         style={customStyles}
       >
-        <AddPostItForm />
+        <AddPostItForm onAddPostIt={this.props.onAddPostIt} />
         <button onClick={this.closeModal}>close</button>
       </Modal>
     </div>
