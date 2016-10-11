@@ -1,5 +1,4 @@
 import React from 'react';
-import $ from 'jquery';
 import axios from 'axios';
 
 import PostIt from './postit';
@@ -17,7 +16,7 @@ export default class Whiteboard extends React.Component {
       showEdit: false,
       editing: {} };
     this.handleEdit = this.handleEdit.bind(this);
-    this.handleSave = this.handleSave.bind(this);
+    // this.handleSave = this.handleSave.bind(this);
     this.handleAddPostIt = this.handleAddPostIt.bind(this);
   }
 
@@ -65,6 +64,22 @@ export default class Whiteboard extends React.Component {
     });
   }
 
+  handleEdit(id) {
+    console.log(this.state.editing);
+    console.log(id);
+    this.setState({
+      showEdit: true,
+      editing: this.state.postIts.filter(postit => postit.id === id)[0]
+    });
+  }
+
+  // handleSave(id, postit) {
+  //   console.log(this);
+  //   console.log('HANDLE SAVE');
+  //   console.log(postit);
+  // }
+
+
   render() {
     return (
       <div>
@@ -78,7 +93,6 @@ export default class Whiteboard extends React.Component {
         <EditDialogue
           isVisible={this.state.showEdit}
           data={this.state.editing}
-          onSave={this.handleSave}
         />
       </div>
     );
