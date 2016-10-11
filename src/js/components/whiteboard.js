@@ -5,8 +5,7 @@ import PostIt from './postit';
 import WhiteboardHeader from './whiteboardHeader';
 import EditDialogue from './editDialogue';
 
-
-export default class Whiteboard extends React.Component {
+class Whiteboard extends React.Component {
 
   constructor(props) {
     super(props);
@@ -14,21 +13,16 @@ export default class Whiteboard extends React.Component {
     this.state = {
       postIts: [],
       showEdit: false,
-      editing: {} };
+      editing: {}
+    };
     this.handleEdit = this.handleEdit.bind(this);
     // this.handleSave = this.handleSave.bind(this);
     this.handleAddPostIt = this.handleAddPostIt.bind(this);
+    this.getPostItsFromServer = this.getPostItsFromServer.bind(this);
   }
 
-
   componentDidMount() {
-    axios.get('http://localhost:8080/api/v1/postits').then((response) => {
-      if (response.status === 200) {
-        this.setState({
-          postIts: response.data
-        });
-      }
-    });
+    this.getPostItsFromServer();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -36,10 +30,21 @@ export default class Whiteboard extends React.Component {
       postIts: nextProps.postIts
     });
   }
+
   componentWillUnmount() {
     this.serverRequest.abort();
+    this.setState({});
   }
 
+  getPostItsFromServer() {
+    axios.get(this.apiUrl).then((response) => {
+      if (response.status === 200) {
+        this.setState({
+          postIts: response.data
+        });
+      }
+    });
+  }
   handleAddPostIt(titleInput, description, postItColor) {
     const postIt = {
       title: titleInput,
@@ -48,20 +53,21 @@ export default class Whiteboard extends React.Component {
     };
     axios({
       method: 'post',
-      url: 'http://localhost:8080/api/v1/postits',
+      url: this.apiUrl,
       data: postIt
     })
-    .then((response) => {
-      if (response.status === 201) {
-        console.log(response);
-        this.setState({
-          postIts: this.state.postIts.concat([{
-            id: response.data.id,
-            item: postIt
-          }])
-        });
-      }
-    });
+      .then((response) => {
+        if (response.status === 201) {
+          console.log(response);
+          this.setState({
+            postIts: this.state.postIts.concat([{
+              id: response.data.id,
+              item: postIt
+            }])
+          });
+        }
+        this.getPostItsFromServer();
+      });
   }
 
   handleEdit(id) {
@@ -83,11 +89,13 @@ export default class Whiteboard extends React.Component {
   render() {
     return (
       <div>
-        <WhiteboardHeader onAddPostIt={this.handleAddPostIt} />
+        <WhiteboardHeader onAddPostIt={this.handleAddPostIt}/>
         <div className="jumbotron">
           <div className="post-it panel panel-default">
-            {this.state.postIts.map(item => (
-              <PostIt id={item.id} data={item.postIt} onEdit={this.handleEdit} />)) }
+            <ul className="list-group">
+              {this.state.postIts.map(item => (
+                <PostIt id={item.id} data={item.postIt} onEdit={this.handleEdit}/>)) }
+            </ul>
           </div>
         </div>
         <EditDialogue
@@ -98,3 +106,5 @@ export default class Whiteboard extends React.Component {
     );
   }
 }
+
+export default Whiteboard;
