@@ -39,19 +39,22 @@ const AddPostItForm = (props) => {
               <option>Green</option>
               <option>Pink</option>
               <option>Orange</option>
-              <option>Red</option>
             </select>
           </div>
         </div>
 
         <div className="form-group">
           <div className="col-lg-10 col-lg-offset-2">
-            <button type="button" className="btn btn-primary" onClick={savePostIt}>Save</button>
-            <button type="reset" className="btn btn-default">Cancel</button>
+            <button type="button" className="btn btn-primary" onClick={() => { savePostIt(); props.closeModal(); }} >Save</button>
+            <button type="reset" className="btn btn-default" onClick={props.closeModal}>Cancel</button>
           </div>
         </div>
       </fieldset>
     </form>);
+};
+
+AddPostItForm.propTypes = {
+  closeModal: React.PropTypes.func
 };
 
 export default AddPostItForm;
