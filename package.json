@@ -4,6 +4,7 @@
   "description": "WebService for managing a digital whiteboard with post-it notes. Written in javascript using Node.js.",
   "main": "index.js",
   "dependencies": {
+    "axion": "^0.1.0",
     "babel-polyfill": "^6.16.0",
     "body-parser": "^1.15.2",
     "ejs": "^2.5.2",

@@ -1,11 +1,7 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import AddPostItForm from './addPostItForm';
-
 
 const PostIt = (props) => {
   function showEditDialogue() {
-	  // console.log(props.id);
     props.onEdit(props.id);
   }
   return (
