@@ -1,12 +1,18 @@
 import React from 'react';
-import Modal from 'react-modal';
+
+
+const ConfirmDelete = () => (
+  <div className="modal-component">
+    <p>Do you want to delete this postit </p>
+		<button>OK</button>
+		<button>Cancel</button>
+  </div>
+);
 
 
 const PostIt = (props) => {
   function confirmDelete() {
-    if (window.confirm('Do you really want to delete this post-it?')) {
-      console.log('Confirm delete');
-    }
+
   }
   return (
     <div className="panel-body" style={{ backgroundColor: props.data.color }}>
@@ -17,6 +23,7 @@ const PostIt = (props) => {
         <button className="edit-button btn btn-default btn-xs">Edit</button>
         <button className="delete-button btn btn-danger btn-xs" onClick={confirmDelete}>Delete</button>
       </div>
+
     </div>
 );
 };
