@@ -6,6 +6,7 @@ const PostIt = (props) => {
   }
   return (
     <div className="panel-body" style={{ backgroundColor: props.data.color }}>
+      <h6>{props.data.timeCreated}</h6>
       <p className="title" style={{ textDecoration: 'underline' }}>{ props.data.title }</p>
       <p className="title">{ props.data.text }</p>
       <div className="col-lg-10 col-lg-offset-2">

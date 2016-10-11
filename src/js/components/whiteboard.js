@@ -1,9 +1,11 @@
 import React from 'react';
 import $ from 'jquery';
-import axion from 'axion';
+import axios from 'axios';
 
 import PostIt from './postit';
+import WhiteboardHeader from './whiteboardHeader';
 import EditDialogue from './editDialogue';
+
 
 export default class Whiteboard extends React.Component {
 
@@ -16,52 +18,62 @@ export default class Whiteboard extends React.Component {
       editing: {} };
     this.handleEdit = this.handleEdit.bind(this);
     this.handleSave = this.handleSave.bind(this);
+    this.handleAddPostIt = this.handleAddPostIt.bind(this);
   }
 
 
   componentDidMount() {
-    // lint fails, how do we bind 'this' when using fat arrow notation =>
-    // (result) => { }.bind(this); fails
-    this.serverRequest = $.get(this.apiUrl, (result) => {
-      this.setState({
-        postIts: this.state.postIts.concat(result)
-      });
+    axios.get('http://localhost:8080/api/v1/postits').then((response) => {
+      if (response.status === 200) {
+        this.setState({
+          postIts: response.data
+        });
+      }
     });
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      postIts: nextProps.postIts
+    });
+  }
   componentWillUnmount() {
     this.serverRequest.abort();
   }
 
-  handleEdit(id) {
-    this.setState({
-      showEdit: true,
-      editing: this.state.postIts.filter(postit => postit.id === id)[0]
+  handleAddPostIt(titleInput, description, postItColor) {
+    const postIt = {
+      title: titleInput,
+      text: description,
+      color: postItColor
+    };
+    axios({
+      method: 'post',
+      url: 'http://localhost:8080/api/v1/postits',
+      data: postIt
+    })
+    .then((response) => {
+      if (response.status === 201) {
+        console.log(response);
+        this.setState({
+          postIts: this.state.postIts.concat([{
+            id: response.data.id,
+            item: postIt
+          }])
+        });
+      }
     });
-
-    // const item = this.state.postIts.filter(postit => postit.id === id)[0];
-    // return item.postIt;
-  }
-
-  handleSave(id, postit) {
-    console.log('HANDLE SAVE');
-    console.log(postit);
-    // this.setState({
-  	// 	postIts: postIts.map((item) =>  )
-    // });
-    // this.setState({
-    //   showEdit: false,
-    //   editing: null
-    // });
   }
 
   render() {
     return (
-      <div className="jumbotron">
-        <div className="post-it panel panel-default">
-
-          {this.state.postIts.map(item => (
-            <PostIt id={item.id} data={item.postIt} onEdit={this.handleEdit} />)) }
+      <div>
+        <WhiteboardHeader onAddPostIt={this.handleAddPostIt} />
+        <div className="jumbotron">
+          <div className="post-it panel panel-default">
+            {this.state.postIts.map(item => (
+              <PostIt id={item.id} data={item.postIt} onEdit={this.handleEdit} />)) }
+          </div>
         </div>
         <EditDialogue
           isVisible={this.state.showEdit}
