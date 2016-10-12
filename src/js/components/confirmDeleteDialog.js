@@ -3,7 +3,7 @@ import React from 'react';
 const ConfirmDeletePostIt = (props) => {
   function handleOk() {
     console.log(`DELETING ${props.id}`);
-    // props.onDelete(props.id);
+    props.onDelete(props.id);
   }
   if (props.isVisible) {
     return (

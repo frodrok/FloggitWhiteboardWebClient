@@ -32,7 +32,8 @@ class Whiteboard extends React.Component {
     this.handleEdit = this.handleEdit.bind(this);
     // this.handleSave = this.handleSave.bind(this);
     this.handleAddPostIt = this.handleAddPostIt.bind(this);
-    this.handleDelete = this.handleDelete.bind(this);
+    this.handleDeleteClick = this.handleDeleteClick.bind(this);
+    this.handleDeletePostIt = this.handleDeletePostIt.bind(this);
   }
 
   componentDidMount() {
@@ -92,11 +93,24 @@ class Whiteboard extends React.Component {
     });
   }
 
-  handleDelete(id) {
+  handleDeleteClick(id) {
     // const itemToDelete = this.state.postIts.filter(item => item.id === id);
     this.setState({
       beingDeleted: id,
       confirmIsVisible: true
+    });
+  }
+
+  handleDeletePostIt(id) {
+    axios.delete(`http://localhost:8080/api/v1/postits/${id}`).then((response) => {
+      if (response.status === 200) {
+        this.setState({
+          postIts: this.state.postIts.filter(item => item.id !== id),
+          beingDeleted: 0,
+          confirmIsVisible: false
+        });
+      }
+      // this.getPostItsFromServer();
     });
   }
 
@@ -114,7 +128,7 @@ class Whiteboard extends React.Component {
                   beingDeleted={this.state.beingDeleted}
                   onEdit={this.handleEdit}
                   confirmIsVisible={this.state.confirmIsVisible}
-                  onDelete={this.handleDelete}
+                  onDelete={this.handleDeleteClick}
                 />)) }
             </ul>
           </div>
@@ -129,6 +143,7 @@ class Whiteboard extends React.Component {
           <ConfirmDeletePostIt
             isVisible={this.state.confirmIsVisible}
             id={this.state.beingDeleted}
+            onDelete={this.handleDeletePostIt}
           />
         </Modal>)
       </div>
