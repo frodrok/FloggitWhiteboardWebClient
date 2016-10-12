@@ -4,14 +4,16 @@ import AddPostItForm from './addPostItForm';
 
 const customStyles = {
   content: {
-    position: 'fixed',
-    display: 'flex',
-    flexWrap: 'wrap',
-    width: '50%'
+    top: '40%',
+    left: '20%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)'
   }
 };
 
-class AddPostItButton extends React.Component {
+export default class AddPostItButton extends React.Component {
 
   constructor() {
     super();
@@ -48,24 +50,18 @@ class AddPostItButton extends React.Component {
   }
 
   render() {
-    return (
-      <div>
-        <button type="button" id="button" className="btn btn-primary btn-lg" onClick={this.openModal}>Add note</button>
-        <Modal
-          isOpen={this.state.modalIsOpen}
-          onAfterOpen={this.afterOpenModal}
-          onRequestClose={this.closeModal}
-          style={customStyles}
-        >
-          <AddPostItForm onAddPostIt={this.props.onAddPostIt} closeModal={this.closeModal} />
-        </Modal>
-      </div>
+    return (<div>
+      <button type="button" id="button" className="btn btn-primary btn-lg" onClick={this.openModal}>Add note</button>
+      <Modal
+        isOpen={this.state.modalIsOpen}
+        onAfterOpen={this.afterOpenModal}
+        onRequestClose={this.closeModal}
+        style={customStyles}
+      >
+        <AddPostItForm onAddPostIt={this.props.onAddPostIt} />
+        <button onClick={this.closeModal}>close</button>
+      </Modal>
+    </div>
     );
   }
 }
-
-AddPostItButton.propTypes = {
-  onAddPostIt: React.PropTypes.func
-};
-
-export default AddPostItButton;

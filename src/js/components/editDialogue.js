@@ -33,7 +33,7 @@ const EditDialogue = (props) => {
             <div className="col-lg-10">
               <select className="form-control" id="color">
                 {
-                  ['blue', 'green', 'pink', 'orange'].map(val => <option
+                  ['red', 'green', 'pink', 'orange'].map(val => <option
                     selected={val === props.data.postIt.color.toLowerCase()}
                   >{val}</option>)
                 }

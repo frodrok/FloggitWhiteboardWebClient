@@ -1,9 +1,22 @@
 import React from 'react';
 import axios from 'axios';
+import Modal from 'react-modal';
 
 import PostIt from './postit';
 import WhiteboardHeader from './whiteboardHeader';
 import EditDialogue from './editDialogue';
+import ConfirmDeletePostIt from './confirmDeleteDialog';
+
+const customStyles = {
+  content: {
+    top: '40%',
+    left: '20%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)'
+  }
+};
 
 class Whiteboard extends React.Component {
 
@@ -13,12 +26,13 @@ class Whiteboard extends React.Component {
     this.state = {
       postIts: [],
       showEdit: false,
-      editing: {}
-    };
+      editing: {},
+      beingDeleted: 0,
+      confirmIsVisible: false };
     this.handleEdit = this.handleEdit.bind(this);
     // this.handleSave = this.handleSave.bind(this);
     this.handleAddPostIt = this.handleAddPostIt.bind(this);
-    this.getPostItsFromServer = this.getPostItsFromServer.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
   }
 
   componentDidMount() {
@@ -45,6 +59,7 @@ class Whiteboard extends React.Component {
       }
     });
   }
+
   handleAddPostIt(titleInput, description, postItColor) {
     const postIt = {
       title: titleInput,
@@ -71,37 +86,51 @@ class Whiteboard extends React.Component {
   }
 
   handleEdit(id) {
-    console.log(this.state.editing);
-    console.log(id);
     this.setState({
       showEdit: true,
       editing: this.state.postIts.filter(postit => postit.id === id)[0]
     });
   }
 
-  // handleSave(id, postit) {
-  //   console.log(this);
-  //   console.log('HANDLE SAVE');
-  //   console.log(postit);
-  // }
-
+  handleDelete(id) {
+    // const itemToDelete = this.state.postIts.filter(item => item.id === id);
+    this.setState({
+      beingDeleted: id,
+      confirmIsVisible: true
+    });
+  }
 
   render() {
     return (
       <div>
-        <WhiteboardHeader onAddPostIt={this.handleAddPostIt}/>
+        <WhiteboardHeader onAddPostIt={this.handleAddPostIt} />
         <div className="jumbotron">
           <div className="post-it panel panel-default">
             <ul className="list-group">
               {this.state.postIts.map(item => (
-                <PostIt id={item.id} data={item.postIt} onEdit={this.handleEdit}/>)) }
+                <PostIt
+                  id={item.id}
+                  data={item.postIt}
+                  beingDeleted={this.state.beingDeleted}
+                  onEdit={this.handleEdit}
+                  confirmIsVisible={this.state.confirmIsVisible}
+                  onDelete={this.handleDelete}
+                />)) }
             </ul>
           </div>
         </div>
-        <EditDialogue
-          isVisible={this.state.showEdit}
-          data={this.state.editing}
-        />
+        <Modal isOpen={this.state.showEdit} style={customStyles}>
+          <EditDialogue
+            isVisible={this.state.showEdit}
+            data={this.state.editing}
+          />
+        </Modal>
+        <Modal isOpen={this.state.confirmIsVisible} style={customStyles}>
+          <ConfirmDeletePostIt
+            isVisible={this.state.confirmIsVisible}
+            id={this.state.beingDeleted}
+          />
+        </Modal>)
       </div>
     );
   }
