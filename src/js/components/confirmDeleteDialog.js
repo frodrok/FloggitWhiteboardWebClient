@@ -13,7 +13,7 @@ const ConfirmDeletePostIt = (props) => {
         </div>
         <div className="col-lg-10 col-lg-offset-2">
           <button className="btn btn-default">Cancel</button>
-          <button className="btn btn-primary" onClick={handleOk}>OK</button>
+          <button type="button" className="btn btn-primary" onClick={handleOk}>OK</button>
         </div>
       </div>
     );
@@ -24,7 +24,7 @@ const ConfirmDeletePostIt = (props) => {
 ConfirmDeletePostIt.propTypes = () => ({
   isVisible: React.PropTypes.bool,
   id: React.PropTypes.number,
-  onOK: React.PropTypes.func
+  onDelete: React.PropTypes.func
 });
 
 export default ConfirmDeletePostIt;

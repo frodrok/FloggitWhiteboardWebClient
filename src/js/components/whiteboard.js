@@ -53,7 +53,7 @@ class Whiteboard extends React.Component {
 
   getPostItsFromServer() {
     axios.get(this.apiUrl).then((response) => {
-      if (response.status === 200) {
+      if (response.status === 200 || response.status === 304) {
         this.setState({
           postIts: response.data
         });
@@ -102,7 +102,7 @@ class Whiteboard extends React.Component {
   }
 
   handleDeletePostIt(id) {
-    axios.delete(`http://localhost:8080/api/v1/postits/${id}`).then((response) => {
+    axios.delete(`${this.apiUrl}/${id}`).then((response) => {
       if (response.status === 200) {
         this.setState({
           postIts: this.state.postIts.filter(item => item.id !== id),
@@ -110,7 +110,7 @@ class Whiteboard extends React.Component {
           confirmIsVisible: false
         });
       }
-      // this.getPostItsFromServer();
+      this.getPostItsFromServer();
     });
   }
 
@@ -125,7 +125,6 @@ class Whiteboard extends React.Component {
                 <PostIt
                   id={item.id}
                   data={item.postIt}
-                  beingDeleted={this.state.beingDeleted}
                   onEdit={this.handleEdit}
                   confirmIsVisible={this.state.confirmIsVisible}
                   onDelete={this.handleDeleteClick}
@@ -145,7 +144,7 @@ class Whiteboard extends React.Component {
             id={this.state.beingDeleted}
             onDelete={this.handleDeletePostIt}
           />
-        </Modal>)
+        </Modal>
       </div>
     );
   }
