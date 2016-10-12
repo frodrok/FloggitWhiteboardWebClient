@@ -3,15 +3,25 @@ import axios from 'axios';
 
 import PostIt from './postit';
 import WhiteboardHeader from './whiteboardHeader';
+import EditDialogue from './editDialogue';
+
 
 export default class Whiteboard extends React.Component {
 
   constructor(props) {
     super(props);
     this.apiUrl = 'http://localhost:8080/api/v1/postits';
-    this.state = { postIts: [] };
+    this.state = {
+      postIts: [],
+      showEdit: false,
+      editing: {},
+      confirmIsVisible: false };
+    this.handleEdit = this.handleEdit.bind(this);
+    // this.handleSave = this.handleSave.bind(this);
     this.handleAddPostIt = this.handleAddPostIt.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
   }
+
 
   componentDidMount() {
     axios.get('http://localhost:8080/api/v1/postits').then((response) => {
@@ -56,6 +66,28 @@ export default class Whiteboard extends React.Component {
     });
   }
 
+  handleEdit(id) {
+    console.log(this.state.editing);
+    console.log(id);
+    this.setState({
+      showEdit: true,
+      editing: this.state.postIts.filter(postit => postit.id === id)[0]
+    });
+  }
+
+  handleDelete() {
+    this.setState({
+      confirmIsVisible: true
+    });
+  }
+
+  // handleSave(id, postit) {
+  //   console.log(this);
+  //   console.log('HANDLE SAVE');
+  //   console.log(postit);
+  // }
+
+
   render() {
     return (
       <div>
@@ -63,9 +95,13 @@ export default class Whiteboard extends React.Component {
         <div className="jumbotron">
           <div className="post-it panel panel-default">
             {this.state.postIts.map(item => (
-              <PostIt data={item.postIt} />)) }
+              <PostIt id={item.id} data={item.postIt} onEdit={this.handleEdit} confirmIsVisible={this.state.confirmIsVisible} onDelete={this.handleDelete} />)) }
           </div>
         </div>
+        <EditDialogue
+          isVisible={this.state.showEdit}
+          data={this.state.editing}
+        />
       </div>
     );
   }
