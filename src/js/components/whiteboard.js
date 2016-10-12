@@ -93,18 +93,11 @@ class Whiteboard extends React.Component {
     });
   }
 
-  handleDelete() {
+  handleDelete(id) {
     this.setState({
       confirmIsVisible: true
     });
   }
-
-  // handleSave(id, postit) {
-  //   console.log(this);
-  //   console.log('HANDLE SAVE');
-  //   console.log(postit);
-  // }
-
 
   render() {
     return (
