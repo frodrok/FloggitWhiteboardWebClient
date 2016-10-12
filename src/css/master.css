@@ -25,10 +25,6 @@
     width: 254px;
 }
 
-ul {
-    list-style: none;
-}
-
 .label-color {
     display: inline-flex;
     background: yellow;
@@ -37,4 +33,8 @@ ul {
     line-height: 75pt;
     border-radius: 3px;
     margin: 0 3px 3px 0;
+}
+
+.body {
+    margin-top: 2em;
 }
