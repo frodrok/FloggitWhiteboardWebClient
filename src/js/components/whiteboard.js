@@ -27,6 +27,7 @@ class Whiteboard extends React.Component {
       postIts: [],
       showEdit: false,
       editing: {},
+      beingDeleted: 0,
       confirmIsVisible: false };
     this.handleEdit = this.handleEdit.bind(this);
     // this.handleSave = this.handleSave.bind(this);
@@ -85,8 +86,6 @@ class Whiteboard extends React.Component {
   }
 
   handleEdit(id) {
-    console.log(this.state.editing);
-    console.log(id);
     this.setState({
       showEdit: true,
       editing: this.state.postIts.filter(postit => postit.id === id)[0]
@@ -94,7 +93,9 @@ class Whiteboard extends React.Component {
   }
 
   handleDelete(id) {
+    // const itemToDelete = this.state.postIts.filter(item => item.id === id);
     this.setState({
+      beingDeleted: id,
       confirmIsVisible: true
     });
   }
@@ -108,7 +109,9 @@ class Whiteboard extends React.Component {
             <ul className="list-group">
               {this.state.postIts.map(item => (
                 <PostIt
-                  id={item.id} data={item.postIt}
+                  id={item.id}
+                  data={item.postIt}
+                  beingDeleted={this.state.beingDeleted}
                   onEdit={this.handleEdit}
                   confirmIsVisible={this.state.confirmIsVisible}
                   onDelete={this.handleDelete}
@@ -123,8 +126,11 @@ class Whiteboard extends React.Component {
           />
         </Modal>
         <Modal isOpen={this.state.confirmIsVisible} style={customStyles}>
-          <ConfirmDeletePostIt isVisible={this.state.confirmIsVisible} />
-        </Modal>
+          <ConfirmDeletePostIt
+            isVisible={this.state.confirmIsVisible}
+            id={this.state.beingDeleted}
+          />
+        </Modal>)
       </div>
     );
   }

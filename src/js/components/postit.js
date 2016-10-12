@@ -1,44 +1,12 @@
 import React from 'react';
-import Modal from 'react-modal';
-
-
-const customStyles = {
-  content: {
-    top: '40%',
-    left: '20%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)'
-  }
-};
-
-const ConfirmDeletePostIt = (props) => {
-  if (props.isVisible) {
-    return (
-      <div className="confirm">
-        <div>
-          <p>Do you really want to delete this post-it?</p>
-        </div>
-        <div className="col-lg-10 col-lg-offset-2">
-          <button className="btn btn-default">Cancel</button>
-          <button className="btn btn-primary">OK</button>
-        </div>
-      </div>
-    );
-  }
-  return null;
-};
-
-ConfirmDeletePostIt.propTypes = () => ({
-  isVisible: React.PropTypes.bool
-});
 
 const PostIt = (props) => {
   function showEditDialogue() {
     props.onEdit(props.id);
   }
+
   function showConfirmDialogue() {
+    console.log(props.id);
     props.onDelete(props.id);
   }
 
@@ -61,7 +29,7 @@ PostIt.propTypes = () => ({
   id: React.PropTypes.number,
   data: React.PropTypes.shape.isRequired,
   onEdit: React.PropTypes.func,
-  // confirmIsVisible: React.PropTypes.bool,
+  confirmIsVisible: React.PropTypes.bool,
   onDelete: React.PropTypes.func
 });
 
