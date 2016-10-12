@@ -16,9 +16,9 @@ class Whiteboard extends React.Component {
       editing: {}
     };
     this.handleEdit = this.handleEdit.bind(this);
-    // this.handleSave = this.handleSave.bind(this);
     this.handleAddPostIt = this.handleAddPostIt.bind(this);
     this.getPostItsFromServer = this.getPostItsFromServer.bind(this);
+    this.handleUpdatePostIt = this.handleUpdatePostIt.bind(this);
   }
 
   componentDidMount() {
@@ -58,7 +58,7 @@ class Whiteboard extends React.Component {
     })
       .then((response) => {
         if (response.status === 201) {
-          console.log(response);
+          // console.log(response);
           this.setState({
             postIts: this.state.postIts.concat([{
               id: response.data.id,
@@ -71,36 +71,49 @@ class Whiteboard extends React.Component {
   }
 
   handleEdit(id) {
-    console.log(this.state.editing);
-    console.log(id);
+    // console.log(this.state.editing);
+    // console.log(id);
     this.setState({
       showEdit: true,
       editing: this.state.postIts.filter(postit => postit.id === id)[0]
     });
   }
 
-  // handleSave(id, postit) {
-  //   console.log(this);
-  //   console.log('HANDLE SAVE');
-  //   console.log(postit);
-  // }
+  handleUpdatePostIt(id, postTitle, postText, postColor) {
+    const postIt = {
+      title: postTitle,
+      text: postText,
+      color: postColor
+    };
+    console.log(id);
+    axios({
+      method: 'put',
+      url: `${this.apiUrl}/:${id}`,
+      data: postIt
+    })
+      .then((response) => {
+        console.log(response.data);
+        console.log(response.status);
+      });
+  }
 
 
   render() {
     return (
       <div>
-        <WhiteboardHeader onAddPostIt={this.handleAddPostIt}/>
+        <WhiteboardHeader onAddPostIt={this.handleAddPostIt} />
         <div className="jumbotron">
           <div className="post-it panel panel-default">
             <ul className="list-group">
               {this.state.postIts.map(item => (
-                <PostIt id={item.id} data={item.postIt} onEdit={this.handleEdit}/>)) }
+                <PostIt id={item.id} data={item.postIt} onEdit={this.handleEdit} />)) }
             </ul>
           </div>
         </div>
         <EditDialogue
           isVisible={this.state.showEdit}
           data={this.state.editing}
+          onUpdatePostIt={this.handleUpdatePostIt}
         />
       </div>
     );
