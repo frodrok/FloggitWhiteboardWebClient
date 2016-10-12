@@ -1,12 +1,24 @@
 import React from 'react';
 import axios from 'axios';
+import Modal from 'react-modal';
 
 import PostIt from './postit';
 import WhiteboardHeader from './whiteboardHeader';
 import EditDialogue from './editDialogue';
+import ConfirmDeletePostIt from './confirmDeleteDialog';
 
+const customStyles = {
+  content: {
+    top: '40%',
+    left: '20%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)'
+  }
+};
 
-export default class Whiteboard extends React.Component {
+class Whiteboard extends React.Component {
 
   constructor(props) {
     super(props);
@@ -22,15 +34,8 @@ export default class Whiteboard extends React.Component {
     this.handleDelete = this.handleDelete.bind(this);
   }
 
-
   componentDidMount() {
-    axios.get('http://localhost:8080/api/v1/postits').then((response) => {
-      if (response.status === 200) {
-        this.setState({
-          postIts: response.data
-        });
-      }
-    });
+    this.getPostItsFromServer();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -38,8 +43,20 @@ export default class Whiteboard extends React.Component {
       postIts: nextProps.postIts
     });
   }
+
   componentWillUnmount() {
     this.serverRequest.abort();
+    this.setState({});
+  }
+
+  getPostItsFromServer() {
+    axios.get(this.apiUrl).then((response) => {
+      if (response.status === 200) {
+        this.setState({
+          postIts: response.data
+        });
+      }
+    });
   }
 
   handleAddPostIt(titleInput, description, postItColor) {
@@ -50,20 +67,21 @@ export default class Whiteboard extends React.Component {
     };
     axios({
       method: 'post',
-      url: 'http://localhost:8080/api/v1/postits',
+      url: this.apiUrl,
       data: postIt
     })
-    .then((response) => {
-      if (response.status === 201) {
-        console.log(response);
-        this.setState({
-          postIts: this.state.postIts.concat([{
-            id: response.data.id,
-            item: postIt
-          }])
-        });
-      }
-    });
+      .then((response) => {
+        if (response.status === 201) {
+          console.log(response);
+          this.setState({
+            postIts: this.state.postIts.concat([{
+              id: response.data.id,
+              item: postIt
+            }])
+          });
+        }
+        this.getPostItsFromServer();
+      });
   }
 
   handleEdit(id) {
@@ -94,15 +112,29 @@ export default class Whiteboard extends React.Component {
         <WhiteboardHeader onAddPostIt={this.handleAddPostIt} />
         <div className="jumbotron">
           <div className="post-it panel panel-default">
-            {this.state.postIts.map(item => (
-              <PostIt id={item.id} data={item.postIt} onEdit={this.handleEdit} confirmIsVisible={this.state.confirmIsVisible} onDelete={this.handleDelete} />)) }
+            <ul className="list-group">
+              {this.state.postIts.map(item => (
+                <PostIt
+                  id={item.id} data={item.postIt}
+                  onEdit={this.handleEdit}
+                  confirmIsVisible={this.state.confirmIsVisible}
+                  onDelete={this.handleDelete}
+                />)) }
+            </ul>
           </div>
         </div>
-        <EditDialogue
-          isVisible={this.state.showEdit}
-          data={this.state.editing}
-        />
+        <Modal isOpen={this.state.showEdit} style={customStyles}>
+          <EditDialogue
+            isVisible={this.state.showEdit}
+            data={this.state.editing}
+          />
+        </Modal>
+        <Modal isOpen={this.state.confirmIsVisible} style={customStyles}>
+          <ConfirmDeletePostIt isVisible={this.state.confirmIsVisible} />
+        </Modal>
       </div>
     );
   }
 }
+
+export default Whiteboard;
