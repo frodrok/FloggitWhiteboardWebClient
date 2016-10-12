@@ -11,7 +11,7 @@ const EditDialogue = (props) => {
   // }
   if (props.isVisible && props.data !== null) {
     return (
-      <form className="form-horizontal" >
+      <form className="form-horizontal">
         <fieldset>
           <legend>Floggit</legend>
           <div className="form-group">
@@ -33,14 +33,16 @@ const EditDialogue = (props) => {
             <div className="col-lg-10">
               <select className="form-control" id="color">
                 {
-                ['blue', 'green', 'pink', 'orange', 'red'].map(val => <option selected={val === props.data.postIt.color.toLowerCase()}>{val}</option>)
+                  ['blue', 'green', 'pink', 'orange'].map(val => <option
+                    selected={val === props.data.postIt.color.toLowerCase()}
+                  >{val}</option>)
                 }
               </select>
             </div>
           </div>
           <div className="form-group">
             <div className="col-lg-10 col-lg-offset-2">
-              <button type="button" className="btn btn-primary" >Save</button>
+              <button type="button" className="btn btn-primary">Save</button>
               <button type="reset" className="btn btn-default">Cancel</button>
             </div>
           </div>
@@ -58,4 +60,4 @@ EditDialogue.propTypes = () => ({
 
 export default EditDialogue;
 
- // ref={(c) => { text = c; }}
+// ref={(c) => { text = c; }}
