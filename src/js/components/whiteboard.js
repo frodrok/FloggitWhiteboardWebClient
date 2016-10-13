@@ -45,6 +45,7 @@ class Whiteboard extends React.Component {
       }
     });
   }
+
   handleAddPostIt(titleInput, description, postItColor) {
     const postIt = {
       title: titleInput,
@@ -88,15 +89,14 @@ class Whiteboard extends React.Component {
 
   render() {
     return (
-      <div>
+      <div >
         <WhiteboardHeader onAddPostIt={this.handleAddPostIt}/>
-        <div className="jumbotron">
-          <div className="post-it panel panel-default">
-            <ul className="list-group">
-              {this.state.postIts.map(item => (
-                <PostIt id={item.id} data={item.postIt} onEdit={this.handleEdit}/>)) }
-            </ul>
-          </div>
+        <div className="post-its-container">
+          <ul className="list-group">
+            {this.state.postIts.map(item => (
+              <PostIt id={item.id} data={item.postIt} onEdit={this.handleEdit}/>
+            )) }
+          </ul>
         </div>
         <EditDialogue
           isVisible={this.state.showEdit}

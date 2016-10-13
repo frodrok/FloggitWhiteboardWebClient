@@ -6,11 +6,13 @@ const PostIt = (props) => {
   }
 
   return (
-    <li>
+    <li className="post-it">
       <div className="panel-body" style={{ backgroundColor: props.data.color }}>
         <h6>{props.data.timeCreated}</h6>
         <p className="title" style={{ textDecoration: 'underline' }}>{ props.data.title }</p>
-        <p className="title">{ props.data.text }</p>
+        <div id="container" >
+          <p className="text" >{ props.data.text }</p>
+        </div>
         <div className="col-lg-10 col-lg-offset-2">
           <button className="edit-button btn btn-default btn-xs" onClick={showEditDialogue}>Edit</button>
           <button className="delete-button btn btn-danger btn-xs">Delete</button>

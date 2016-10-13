@@ -50,7 +50,7 @@ class AddPostItButton extends React.Component {
   render() {
     return (
       <div>
-        <button type="button" id="button" className="btn btn-primary btn-lg" onClick={this.openModal}>Add note</button>
+        <button type="button" id="add-post-it-button" className="btn btn-primary btn-lg" onClick={this.openModal}>Add Post-it</button>
         <Modal
           isOpen={this.state.modalIsOpen}
           onAfterOpen={this.afterOpenModal}
