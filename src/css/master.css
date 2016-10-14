@@ -1,5 +1,10 @@
+body {
+    min-height: 100%;
+}
+
 h1 {
     margin-left: 15px;
+    text-align: center;
 }
 
 .note-container {
@@ -84,12 +89,13 @@ ul {
 }
 
 .post-its-container {
+    min-height: 600px;
     background-color: #151515;
     padding: 15px;
 }
 
 #add-post-it-button {
-    margin: 7px 15px;
+    margin: 15px;
 }
 
 p{
@@ -104,4 +110,14 @@ p{
 
 .buttons {
     padding-right: 0;
+}
+
+.confirm{
+    position: relative;
+    width: 300px;
+    height: 100px;
+    left: 30px;
+    top: -30px;
+    background-color: white;
+    z-index: 11;
 }

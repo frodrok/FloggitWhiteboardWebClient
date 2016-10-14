@@ -8,15 +8,15 @@ const AddPostItForm = (props) => {
   function setColor() {
     switch (color.value) {
       case 'Blue':
-        return 'dodgerblue';
+        return '#0041C2';
       case 'Green':
         return 'mediumseagreen';
       case 'Pink':
-        return 'Pink';
+        return 'pink';
       case 'Orange':
-        return 'Orange';
+        return 'lightsalmon';
       default:
-        return 'White';
+        return 'white';
     }
   }
 
@@ -50,7 +50,7 @@ const AddPostItForm = (props) => {
         <div className="form-group">
           <label htmlFor="color" className="col-lg-2 control-label">Color</label>
           <div className="col-lg-10">
-            <select className="form-control" id="color" ref={(c) => {color = c;}}>
+            <select className="form-control" id="color" ref={(c) => { color = c; }}>
               <option>Blue</option>
               <option>Green</option>
               <option>Pink</option>
