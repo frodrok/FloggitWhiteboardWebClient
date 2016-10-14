@@ -4,16 +4,14 @@ import AddPostItForm from './addPostItForm';
 
 const customStyles = {
   content: {
-    top: '40%',
-    left: '20%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)'
+    position: 'fixed',
+    display: 'flex',
+    flexWrap: 'wrap',
+    width: '50%'
   }
 };
 
-export default class AddPostItButton extends React.Component {
+class AddPostItButton extends React.Component {
 
   constructor() {
     super();
@@ -58,10 +56,15 @@ export default class AddPostItButton extends React.Component {
         onRequestClose={this.closeModal}
         style={customStyles}
       >
-        <AddPostItForm onAddPostIt={this.props.onAddPostIt} />
-        <button onClick={this.closeModal}>close</button>
+        <AddPostItForm onAddPostIt={this.props.onAddPostIt} closeModal={this.closeModal} />
       </Modal>
     </div>
     );
   }
 }
+
+AddPostItButton.propTypes = {
+  onAddPostIt: React.PropTypes.func
+};
+
+export default AddPostItButton;
