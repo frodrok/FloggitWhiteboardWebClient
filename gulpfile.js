@@ -13,40 +13,41 @@ const cleanCSS = require('gulp-clean-css');
 const browserSync = require('browser-sync').create();
 
 gulp.task('browserSync', () =>
-    browserSync.init({
-      server: {
-        baseDir: 'dist'
-      }
-    })
+  browserSync.init({
+    server: {
+      baseDir: 'dist'
+    }
+  })
 );
 
 gulp.task('css', () =>
-    // gulp.src(['./src/css/bootstrap-slate.css', './src/css/default.css'])
-    gulp.src(['./src/css/reset.css', './src/css/bootstrap-cyborg.css', './src/css/master.css'])
-        .pipe(sourcemaps.init())
-        .pipe(autoprefixer())
-        .pipe(concat('master.css'))
-        .pipe(cleanCSS())
-        .pipe(sourcemaps.write('.'))
-        .pipe(gulp.dest('dist/css'))
-        .pipe(browserSync.reload({
-          stream: true
-        }))
-);
-
-gulp.task('html', () => gulp.src('./src/**/*.html')
-    .pipe(htmlmin({
-      collapseWhitespace: true
-    }))
-    .pipe(gulp.dest('dist'))
+  // gulp.src(['./src/css/bootstrap-slate.css', './src/css/default.css'])
+  gulp.src(['./src/css/reset.css', './src/css/bootstrap-cyborg.css', './src/css/master.css'])
+    .pipe(sourcemaps.init())
+    .pipe(autoprefixer())
+    .pipe(concat('master.css'))
+    .pipe(cleanCSS())
+    .pipe(sourcemaps.write('.'))
+    .pipe(gulp.dest('dist/css'))
     .pipe(browserSync.reload({
       stream: true
     }))
 );
 
-gulp.task('javascript', () => browserify('./src/js/app.js', {
-  debug: true
-})
+gulp.task('html', () => gulp.src('./src/**/*.html')
+  .pipe(htmlmin({
+    collapseWhitespace: true
+  }))
+  .pipe(gulp.dest('dist'))
+  .pipe(browserSync.reload({
+    stream: true
+  }))
+);
+
+gulp.task('javascript', () => browserify(
+  './src/js/app.js', {
+    debug: true
+  })
     .transform(babelify)
     .bundle()
     .pipe(source('todo.bundle.js'))
