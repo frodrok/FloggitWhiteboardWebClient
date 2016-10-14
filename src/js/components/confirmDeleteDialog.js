@@ -5,6 +5,10 @@ const ConfirmDeletePostIt = (props) => {
     console.log(`DELETING ${props.id}`);
     props.onDelete(props.id);
   }
+
+  function handleCancel() {
+    props.onDelete();
+  }
   if (props.isVisible) {
     return (
       <div>
@@ -12,7 +16,7 @@ const ConfirmDeletePostIt = (props) => {
           <p>Do you really want to delete this post-it?</p>
         </div>
         <div className="col-lg-10 col-lg-offset-2">
-          <button className="btn btn-default">Cancel</button>
+          <button type="reset" className="btn btn-default" onClick={handleCancel}>Cancel</button>
           <button type="button" className="btn btn-primary" onClick={handleOk}>OK</button>
         </div>
       </div>
