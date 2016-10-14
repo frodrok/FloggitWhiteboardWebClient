@@ -4,10 +4,26 @@ const AddPostItForm = (props) => {
   let title;
   let text;
   let color;
+
+  function setColor() {
+    switch (color.value) {
+      case 'Blue':
+        return 'dodgerblue';
+      case 'Green':
+        return 'mediumseagreen';
+      case 'Pink':
+        return 'Pink';
+      case 'Orange':
+        return 'Orange';
+      default:
+        return 'White';
+    }
+  }
+
   function savePostIt() {
     const postTitle = title.value.trim();
     const postText = text.value.trim();
-    const postColor = color.value;
+    const postColor = setColor();
     props.onAddPostIt(postTitle, postText, postColor);
     title.value = '';
     title.focus();
@@ -34,7 +50,7 @@ const AddPostItForm = (props) => {
         <div className="form-group">
           <label htmlFor="color" className="col-lg-2 control-label">Color</label>
           <div className="col-lg-10">
-            <select className="form-control" id="color" ref={(c) => { color = c; }}>
+            <select className="form-control" id="color" ref={(c) => {color = c;}}>
               <option>Blue</option>
               <option>Green</option>
               <option>Pink</option>
@@ -52,12 +68,12 @@ const AddPostItForm = (props) => {
             </div>
             <ul className="list-group note-list">
               <li className="list-group-item note">
-              <span className="badge">X</span>
-              Note 1
+                <span className="badge">X</span>
+                Note 1
               </li>
               <li className="list-group-item note">
-              <span className="badge">X</span>
-              Note 2
+                <span className="badge">X</span>
+                Note 2
               </li>
             </ul>
           </div>
@@ -65,7 +81,8 @@ const AddPostItForm = (props) => {
 
         <div className="form-group">
           <div className="col-lg-10 col-lg-offset-2">
-            <button type="button" className="btn btn-primary" onClick={() => { savePostIt(); props.closeModal(); }} >Save</button>
+            <button type="button" className="btn btn-primary" onClick={() => { savePostIt(); props.closeModal(); }}>Save
+            </button>
             <button type="reset" className="btn btn-default" onClick={props.closeModal}>Cancel</button>
           </div>
         </div>

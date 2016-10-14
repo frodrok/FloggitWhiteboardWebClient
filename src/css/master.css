@@ -29,7 +29,6 @@ h1 {
     width: 254px;
     display: flex;
     flex-direction: row;
-    flext-wrap: wrap;
 }
 
 .body {
@@ -95,5 +94,14 @@ ul {
 
 p{
     word-break: break-all;
+    color: #1b1b1b;
+    text-align: justify;
 }
 
+.title {
+    color: #1b1b1b;
+}
+
+.buttons {
+    padding-right: 0;
+}
