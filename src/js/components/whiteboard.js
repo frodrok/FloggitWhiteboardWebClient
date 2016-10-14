@@ -132,16 +132,23 @@ class Whiteboard extends React.Component {
   }
 
   handleDeletePostIt(id) {
-    axios.delete(`${this.apiUrl}/${id}`).then((response) => {
-      if (response.status === 200) {
-        this.setState({
-          postIts: this.state.postIts.filter(item => item.id !== id),
-          beingDeleted: 0,
-          confirmIsVisible: false
-        });
-      }
-      this.getPostItsFromServer();
-    });
+    if (!id) {
+      this.setState({
+        beingDeleted: 0,
+        confirmIsVisible: false
+      });
+    } else {
+      axios.delete(`${this.apiUrl}/${id}`).then((response) => {
+        if (response.status === 200) {
+          this.setState({
+            postIts: this.state.postIts.filter(item => item.id !== id),
+            beingDeleted: 0,
+            confirmIsVisible: false
+          });
+        }
+        this.getPostItsFromServer();
+      });
+    }
   }
 
   render() {
