@@ -7,7 +7,7 @@ import WhiteboardHeader from './whiteboardHeader';
 import EditDialogue from './editDialogue';
 import ConfirmDeletePostIt from './confirmDeleteDialog';
 
-const customStyles = {
+const confirmDialogStyles = {
   content: {
     top: '40%',
     left: '20%',
@@ -15,6 +15,15 @@ const customStyles = {
     bottom: 'auto',
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)'
+  }
+};
+
+const editDialogStyles = {
+  content: {
+    position: 'fixed',
+    display: 'flex',
+    flexWrap: 'wrap',
+    width: '50%'
   }
 };
 
@@ -32,6 +41,8 @@ class Whiteboard extends React.Component {
     this.handleEdit = this.handleEdit.bind(this);
     // this.handleSave = this.handleSave.bind(this);
     this.handleAddPostIt = this.handleAddPostIt.bind(this);
+    this.getPostItsFromServer = this.getPostItsFromServer.bind(this);
+    this.handleUpdatePostIt = this.handleUpdatePostIt.bind(this);
     this.handleDeleteClick = this.handleDeleteClick.bind(this);
     this.handleDeletePostIt = this.handleDeletePostIt.bind(this);
   }
@@ -86,6 +97,25 @@ class Whiteboard extends React.Component {
       });
   }
 
+  handleUpdatePostIt(id, postTitle, postText, postColor) {
+    const postIt = {
+      title: postTitle,
+      text: postText,
+      timeCreated: this.state.editing.postIt.timeCreated,
+      color: postColor
+    };
+    console.log(id);
+    axios({
+      method: 'put',
+      url: `${this.apiUrl}/${id}`,
+      data: postIt
+    })
+      .then((response) => {
+        console.log(response.data);
+        console.log(response.status);
+      });
+  }
+
   handleEdit(id) {
     this.setState({
       showEdit: true,
@@ -132,13 +162,14 @@ class Whiteboard extends React.Component {
             </ul>
           </div>
         </div>
-        <Modal isOpen={this.state.showEdit} style={customStyles}>
+        <Modal isOpen={this.state.showEdit} style={editDialogStyles}>
           <EditDialogue
             isVisible={this.state.showEdit}
             data={this.state.editing}
+            onUpdatePostIt={this.handleUpdatePostIt}
           />
         </Modal>
-        <Modal isOpen={this.state.confirmIsVisible} style={customStyles}>
+        <Modal isOpen={this.state.confirmIsVisible} style={confirmDialogStyles}>
           <ConfirmDeletePostIt
             isVisible={this.state.confirmIsVisible}
             id={this.state.beingDeleted}
