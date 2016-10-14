@@ -71,8 +71,6 @@ class Whiteboard extends React.Component {
   }
 
   handleEdit(id) {
-    // console.log(this.state.editing);
-    // console.log(id);
     this.setState({
       showEdit: true,
       editing: this.state.postIts.filter(postit => postit.id === id)[0]
@@ -83,20 +81,20 @@ class Whiteboard extends React.Component {
     const postIt = {
       title: postTitle,
       text: postText,
+      timeCreated: this.state.editing.postIt.timeCreated,
       color: postColor
     };
     console.log(id);
     axios({
       method: 'put',
-      url: `${this.apiUrl}/:${id}`,
+      url: `${this.apiUrl}/${id}`,
       data: postIt
     })
-      .then((response) => {
-        console.log(response.data);
-        console.log(response.status);
-      });
+     .then((response) => {
+       console.log(response.data);
+       console.log(response.status);
+     });
   }
-
 
   render() {
     return (
