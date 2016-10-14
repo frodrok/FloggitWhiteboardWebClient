@@ -5,6 +5,11 @@ const PostIt = (props) => {
     props.onEdit(props.id);
   }
 
+  function showConfirmDialogue() {
+    console.log(props.id);
+    props.onDelete(props.id);
+  }
+
   return (
     <li className="post-it">
       <div className="panel-body" style={{ backgroundColor: props.data.color }}>
@@ -15,7 +20,7 @@ const PostIt = (props) => {
         </div>
         <div className="col-lg-10 col-lg-offset-2 buttons">
           <button className="edit-button btn btn-default btn-xs" onClick={showEditDialogue}>Edit</button>
-          <button className="delete-button btn btn-danger btn-xs">Delete</button>
+          <button className="delete-button btn btn-danger btn-xs" onClick={showConfirmDialogue}>Delete</button>
         </div>
       </div>
     </li>
@@ -25,7 +30,9 @@ const PostIt = (props) => {
 PostIt.propTypes = () => ({
   id: React.PropTypes.number,
   data: React.PropTypes.shape.isRequired,
-  onEdit: React.PropTypes.func
+  onEdit: React.PropTypes.func,
+  confirmIsVisible: React.PropTypes.bool,
+  onDelete: React.PropTypes.func
 });
 
 
