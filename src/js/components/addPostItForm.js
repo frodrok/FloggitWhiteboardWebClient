@@ -8,7 +8,7 @@ const AddPostItForm = (props) => {
   function setColor() {
     switch (color.value) {
       case 'Blue':
-        return '#0041C2';
+        return 'dodgerblue';
       case 'Green':
         return 'mediumseagreen';
       case 'Pink':
