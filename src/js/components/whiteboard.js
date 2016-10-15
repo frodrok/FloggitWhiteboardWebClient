@@ -39,12 +39,12 @@ class Whiteboard extends React.Component {
       beingDeleted: 0,
       confirmIsVisible: false };
     this.handleEdit = this.handleEdit.bind(this);
-    // this.handleSave = this.handleSave.bind(this);
     this.handleAddPostIt = this.handleAddPostIt.bind(this);
     this.getPostItsFromServer = this.getPostItsFromServer.bind(this);
     this.handleUpdatePostIt = this.handleUpdatePostIt.bind(this);
     this.handleDeleteClick = this.handleDeleteClick.bind(this);
     this.handleDeletePostIt = this.handleDeletePostIt.bind(this);
+    this.handleUpdateClick = this.handleUpdateClick.bind(this);
   }
   componentDidMount() {
     this.getPostItsFromServer();
@@ -83,7 +83,6 @@ class Whiteboard extends React.Component {
     })
       .then((response) => {
         if (response.status === 201) {
-          // console.log(response);
           this.setState({
             postIts: this.state.postIts.concat([{
               id: response.data.id,
@@ -109,7 +108,6 @@ class Whiteboard extends React.Component {
       timeCreated: this.state.editing.postIt.timeCreated,
       color: postColor
     };
-    console.log(id);
     axios({
       method: 'put',
       url: `${this.apiUrl}/${id}`,
@@ -117,9 +115,14 @@ class Whiteboard extends React.Component {
     })
      .then((response) => {
        console.log(response.data);
-       console.log(response.status);
        this.getPostItsFromServer();
      });
+  }
+
+  handleUpdateClick() {
+    this.setState({
+      showEdit: false
+    });
   }
 
   handleDeleteClick(id) {
@@ -172,6 +175,7 @@ class Whiteboard extends React.Component {
             isVisible={this.state.showEdit}
             data={this.state.editing}
             onUpdatePostIt={this.handleUpdatePostIt}
+            onUpdate={this.handleUpdateClick}
           />
         </Modal>
         <Modal isOpen={this.state.confirmIsVisible} style={confirmDialogStyles}>

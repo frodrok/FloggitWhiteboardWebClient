@@ -10,6 +10,7 @@ const EditDialogue = (props) => {
     const postText = text.value.trim();
     const postColor = color.value;
     props.onUpdatePostIt(props.data.id, postTitle, postText, postColor);
+    props.onUpdate();
   }
 
   if (props.isVisible && props.data !== null) {
@@ -68,7 +69,8 @@ const EditDialogue = (props) => {
 };
 
 EditDialogue.propTypes = () => ({
-  data: React.PropTypes.shape.isRequired
+  data: React.PropTypes.shape.isRequired,
+  onUpdate: React.PropTypes.func
 });
 
 export default EditDialogue;
