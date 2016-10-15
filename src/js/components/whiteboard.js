@@ -73,11 +73,12 @@ class Whiteboard extends React.Component {
     });
   }
 
-  handleAddPostIt(titleInput, description, postItColor) {
+  handleAddPostIt(titleInput, description, postItColor, postNotes) {
     const postIt = {
       title: titleInput,
       text: description,
-      color: postItColor
+      color: postItColor,
+      notes: postNotes
     };
     axios({
       method: 'post',
