@@ -40,14 +40,13 @@ class Whiteboard extends React.Component {
       confirmIsVisible: false
     };
     this.handleEdit = this.handleEdit.bind(this);
-    // this.handleSave = this.handleSave.bind(this);
     this.handleAddPostIt = this.handleAddPostIt.bind(this);
     this.getPostItsFromServer = this.getPostItsFromServer.bind(this);
     this.handleUpdatePostIt = this.handleUpdatePostIt.bind(this);
     this.handleDeleteClick = this.handleDeleteClick.bind(this);
     this.handleDeletePostIt = this.handleDeletePostIt.bind(this);
+    this.handleUpdateClick = this.handleUpdateClick.bind(this);
   }
-
   componentDidMount() {
     this.getPostItsFromServer();
   }
@@ -65,14 +64,13 @@ class Whiteboard extends React.Component {
 
   getPostItsFromServer() {
     axios.get(this.apiUrl).then((response) => {
-      if (response.status === 200 || response.status === 304) {
+      if (response.status === 200) {
         this.setState({
           postIts: response.data
         });
       }
     });
   }
-
   handleAddPostIt(titleInput, description, postItColor) {
     const postIt = {
       title: titleInput,
@@ -86,7 +84,6 @@ class Whiteboard extends React.Component {
     })
       .then((response) => {
         if (response.status === 201) {
-          console.log(response);
           this.setState({
             postIts: this.state.postIts.concat([{
               id: response.data.id,
@@ -98,25 +95,6 @@ class Whiteboard extends React.Component {
       });
   }
 
-  handleUpdatePostIt(id, postTitle, postText, postColor) {
-    const postIt = {
-      title: postTitle,
-      text: postText,
-      timeCreated: this.state.editing.postIt.timeCreated,
-      color: postColor
-    };
-    console.log(id);
-    axios({
-      method: 'put',
-      url: `${this.apiUrl}/${id}`,
-      data: postIt
-    })
-      .then((response) => {
-        console.log(response.data);
-        console.log(response.status);
-      });
-  }
-
   handleEdit(id) {
     this.setState({
       showEdit: true,
@@ -124,8 +102,32 @@ class Whiteboard extends React.Component {
     });
   }
 
+  handleUpdatePostIt(id, postTitle, postText, postColor) {
+    const postIt = {
+      title: postTitle,
+      text: postText,
+      timeCreated: this.state.editing.postIt.timeCreated,
+      color: postColor
+    };
+    axios({
+      method: 'put',
+      url: `${this.apiUrl}/${id}`,
+      data: postIt
+    })
+     .then((response) => {
+       console.log(response.data);
+       this.getPostItsFromServer();
+     });
+  }
+
+  handleUpdateClick() {
+    this.setState({
+      showEdit: false
+    });
+  }
+
   handleDeleteClick(id) {
-    // const itemToDelete = this.state.postIts.filter(item => item.id === id);
+     // const itemToDelete = this.state.postIts.filter(item => item.id === id);
     this.setState({
       beingDeleted: id,
       confirmIsVisible: true
@@ -151,7 +153,6 @@ class Whiteboard extends React.Component {
       });
     }
   }
-
   render() {
     return (
       <div>
@@ -173,6 +174,7 @@ class Whiteboard extends React.Component {
             isVisible={this.state.showEdit}
             data={this.state.editing}
             onUpdatePostIt={this.handleUpdatePostIt}
+            onUpdate={this.handleUpdateClick}
           />
         </Modal>
         <Modal isOpen={this.state.confirmIsVisible} style={confirmDialogStyles}>
@@ -183,7 +185,7 @@ class Whiteboard extends React.Component {
           />
         </Modal>
       </div>
-    );
+  );
   }
 }
 
