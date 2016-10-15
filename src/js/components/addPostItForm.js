@@ -9,8 +9,6 @@ const AddPostItForm = (props) => {
     const postText = text.value.trim();
     const postColor = color.value;
     props.onAddPostIt(postTitle, postText, postColor);
-    title.value = '';
-    title.focus();
   }
 
   return (

@@ -4,14 +4,11 @@ const EditDialogue = (props) => {
   let title;
   let text;
   let color;
-  // let id;
 
   function updatePostIt() {
-    // console.log(`${props.data.id}props id`);
     const postTitle = title.value.trim();
     const postText = text.value.trim();
     const postColor = color.value;
-    // const postit = { postIt: { title: postTitle, text: postText, color: postColor } };
     props.onUpdatePostIt(props.data.id, postTitle, postText, postColor);
   }
 
@@ -48,11 +45,11 @@ const EditDialogue = (props) => {
           <div className="form-group">
             <label htmlFor="color" className="col-lg-2 control-label">Color</label>
             <div className="col-lg-10">
-              <select className="form-control" id="color">{
-                ['red', 'green', 'pink', 'orange'].map(val => <option
-                  selected={val === props.data.postIt.color.toLowerCase()}
-                >{val}</option>)
-              }
+              <select className="form-control" id="color" defaultValue={props.data.postIt.color} ref={(c) => { color = c; }}>
+                <option>Blue</option>
+                <option>Green</option>
+                <option>Pink</option>
+                <option>Orange</option>
               </select>
             </div>
           </div>

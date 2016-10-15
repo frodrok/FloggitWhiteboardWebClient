@@ -46,7 +46,6 @@ class Whiteboard extends React.Component {
     this.handleDeleteClick = this.handleDeleteClick.bind(this);
     this.handleDeletePostIt = this.handleDeletePostIt.bind(this);
   }
-
   componentDidMount() {
     this.getPostItsFromServer();
   }
@@ -64,14 +63,13 @@ class Whiteboard extends React.Component {
 
   getPostItsFromServer() {
     axios.get(this.apiUrl).then((response) => {
-      if (response.status === 200 || response.status === 304) {
+      if (response.status === 200) {
         this.setState({
           postIts: response.data
         });
       }
     });
   }
-
   handleAddPostIt(titleInput, description, postItColor) {
     const postIt = {
       title: titleInput,
@@ -85,7 +83,7 @@ class Whiteboard extends React.Component {
     })
       .then((response) => {
         if (response.status === 201) {
-          console.log(response);
+          // console.log(response);
           this.setState({
             postIts: this.state.postIts.concat([{
               id: response.data.id,
@@ -95,6 +93,13 @@ class Whiteboard extends React.Component {
         }
         this.getPostItsFromServer();
       });
+  }
+
+  handleEdit(id) {
+    this.setState({
+      showEdit: true,
+      editing: this.state.postIts.filter(postit => postit.id === id)[0]
+    });
   }
 
   handleUpdatePostIt(id, postTitle, postText, postColor) {
@@ -110,21 +115,15 @@ class Whiteboard extends React.Component {
       url: `${this.apiUrl}/${id}`,
       data: postIt
     })
-      .then((response) => {
-        console.log(response.data);
-        console.log(response.status);
-      });
-  }
-
-  handleEdit(id) {
-    this.setState({
-      showEdit: true,
-      editing: this.state.postIts.filter(postit => postit.id === id)[0]
-    });
+     .then((response) => {
+       console.log(response.data);
+       console.log(response.status);
+       this.getPostItsFromServer();
+     });
   }
 
   handleDeleteClick(id) {
-    // const itemToDelete = this.state.postIts.filter(item => item.id === id);
+     // const itemToDelete = this.state.postIts.filter(item => item.id === id);
     this.setState({
       beingDeleted: id,
       confirmIsVisible: true
@@ -150,7 +149,6 @@ class Whiteboard extends React.Component {
       });
     }
   }
-
   render() {
     return (
       <div>
@@ -184,7 +182,7 @@ class Whiteboard extends React.Component {
           />
         </Modal>
       </div>
-    );
+  );
   }
 }
 
