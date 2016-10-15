@@ -40,9 +40,9 @@ class AddPostItForm extends React.Component {
     let note;
     if (noteText.length > 0) {
       note = { id: generateId(), value: noteText };
+      this.noteInput.value = '';
+      this.setState({ notes: [...this.state.notes, note] });
     }
-    this.noteInput.value = '';
-    this.setState({ notes: [...this.state.notes, note] });
   }
 
   handleRemoveNote(id) {
@@ -54,8 +54,6 @@ class AddPostItForm extends React.Component {
     const postText = this.text.value.trim();
     const postColor = this.setColor();
     this.props.onAddPostIt(postTitle, postText, postColor, this.state.notes);
-    this.title.value = '';
-    this.title.focus();
   }
 
   render() {
@@ -71,7 +69,9 @@ class AddPostItForm extends React.Component {
                 className="form-control"
                 id="inputTitle"
                 placeholder="Title"
-                ref={(c) => { this.title = c; }}
+                ref={(c) => {
+                  this.title = c;
+                }}
               />
             </div>
           </div>
@@ -83,7 +83,9 @@ class AddPostItForm extends React.Component {
                 className="form-control"
                 id="description"
                 placeholder="Description"
-                ref={(c) => { this.text = c; }}
+                ref={(c) => {
+                  this.text = c;
+                }}
               />
             </div>
           </div>
@@ -94,7 +96,9 @@ class AddPostItForm extends React.Component {
               <select
                 className="form-control"
                 id="color"
-                ref={(c) => { this.color = c; }}
+                ref={(c) => {
+                  this.color = c;
+                }}
               >
                 <option>Blue</option>
                 <option>Green</option>
@@ -112,7 +116,9 @@ class AddPostItForm extends React.Component {
                   type="text"
                   id="note-item"
                   placeholder="Note"
-                  ref={(c) => { this.noteInput = c; }}
+                  ref={(c) => {
+                    this.noteInput = c;
+                  }}
                 />
                 <button
                   type="button"
@@ -127,7 +133,7 @@ class AddPostItForm extends React.Component {
                 {this.state.notes.map(noteItem => (
                   <li className="list-group-item note" key={noteItem.id} id={noteItem.id}>
                     <button className="badge" onClick={() => this.handleRemoveNote(noteItem.id)}>X</button>
-                    {noteItem.value}
+                    <p>{noteItem.value}</p>
                   </li>
                 ))}
               </ul>
@@ -139,7 +145,10 @@ class AddPostItForm extends React.Component {
               <button
                 type="button"
                 className="btn btn-primary"
-                onClick={() => { this.savePostIt(); this.props.closeModal(); }}
+                onClick={() => {
+                  this.savePostIt();
+                  this.props.closeModal();
+                }}
               >
                 Save
               </button>

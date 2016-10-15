@@ -59,6 +59,7 @@ h1 {
 
 ul {
     list-style: disc;
+    color: #1b1b1b;
 }
 
 .note-container-body .list-group, #note-label {
@@ -98,7 +99,7 @@ ul {
     margin: 15px;
 }
 
-p{
+p {
     word-break: break-all;
     color: #1b1b1b;
     text-align: justify;
@@ -112,7 +113,7 @@ p{
     padding-right: 0;
 }
 
-.confirm{
+.confirm {
     position: relative;
     width: 300px;
     height: 100px;
@@ -122,7 +123,6 @@ p{
     z-index: 11;
 }
 
-.post-it-note-list li{
+.post-it-note-list li {
     margin-left: 14px;
-    color: #1b1b1b;
 }

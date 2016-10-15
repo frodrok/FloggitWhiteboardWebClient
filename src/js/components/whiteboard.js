@@ -40,13 +40,12 @@ class Whiteboard extends React.Component {
       confirmIsVisible: false
     };
     this.handleEdit = this.handleEdit.bind(this);
-    // this.handleSave = this.handleSave.bind(this);
     this.handleAddPostIt = this.handleAddPostIt.bind(this);
     this.getPostItsFromServer = this.getPostItsFromServer.bind(this);
     this.handleUpdatePostIt = this.handleUpdatePostIt.bind(this);
+    this.handleUpdateClick = this.handleUpdateClick.bind(this);
     this.handleDeleteClick = this.handleDeleteClick.bind(this);
     this.handleDeletePostIt = this.handleDeletePostIt.bind(this);
-    this.handleUpdateClick = this.handleUpdateClick.bind(this);
   }
 
   componentDidMount() {
@@ -74,11 +73,12 @@ class Whiteboard extends React.Component {
     });
   }
 
-  handleAddPostIt(titleInput, description, postItColor, postNotes) {
+  handleAddPostIt(titleInput, description, postItColor, noteList) {
     const postIt = {
       title: titleInput,
       text: description,
-      color: postItColor
+      color: postItColor,
+      notes: noteList
     };
     axios({
       method: 'post',
@@ -105,12 +105,13 @@ class Whiteboard extends React.Component {
     });
   }
 
-  handleUpdatePostIt(id, postTitle, postText, postColor) {
+  handleUpdatePostIt(id, postTitle, postText, postColor, postNotes) {
     const postIt = {
       title: postTitle,
       text: postText,
       timeCreated: this.state.editing.postIt.timeCreated,
-      color: postColor
+      color: postColor,
+      notes: postNotes
     };
     axios({
       method: 'put',

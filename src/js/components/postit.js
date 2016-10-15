@@ -19,7 +19,9 @@ const PostIt = (props) => {
           <p className="text">{ props.data.text }</p>
         </div>
         <ul className="post-it-note-list">{props.data.notes.map(note => (
-          <li key={note.id}>{note.value}</li>))}
+          <li key={note.id}>
+            <p>{note.value}</p>
+          </li>))}
         </ul>
         <div className="col-lg-10 col-lg-offset-2 buttons">
           <button className="edit-button btn btn-default btn-xs" onClick={showEditDialogue}>Edit</button>
