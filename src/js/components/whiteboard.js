@@ -46,6 +46,7 @@ class Whiteboard extends React.Component {
     this.handleUpdatePostIt = this.handleUpdatePostIt.bind(this);
     this.handleDeleteClick = this.handleDeleteClick.bind(this);
     this.handleDeletePostIt = this.handleDeletePostIt.bind(this);
+    this.handleUpdateClick = this.handleUpdateClick.bind(this);
   }
 
   componentDidMount() {
@@ -65,7 +66,7 @@ class Whiteboard extends React.Component {
 
   getPostItsFromServer() {
     axios.get(this.apiUrl).then((response) => {
-      if (response.status === 200 || response.status === 304) {
+      if (response.status === 200) {
         this.setState({
           postIts: response.data
         });
@@ -77,8 +78,7 @@ class Whiteboard extends React.Component {
     const postIt = {
       title: titleInput,
       text: description,
-      color: postItColor,
-      notes: postNotes
+      color: postItColor
     };
     axios({
       method: 'post',
@@ -87,7 +87,6 @@ class Whiteboard extends React.Component {
     })
       .then((response) => {
         if (response.status === 201) {
-          console.log(response);
           this.setState({
             postIts: this.state.postIts.concat([{
               id: response.data.id,
@@ -99,6 +98,13 @@ class Whiteboard extends React.Component {
       });
   }
 
+  handleEdit(id) {
+    this.setState({
+      showEdit: true,
+      editing: this.state.postIts.filter(postit => postit.id === id)[0]
+    });
+  }
+
   handleUpdatePostIt(id, postTitle, postText, postColor) {
     const postIt = {
       title: postTitle,
@@ -106,22 +112,20 @@ class Whiteboard extends React.Component {
       timeCreated: this.state.editing.postIt.timeCreated,
       color: postColor
     };
-    console.log(id);
     axios({
       method: 'put',
       url: `${this.apiUrl}/${id}`,
       data: postIt
     })
-      .then((response) => {
-        console.log(response.data);
-        console.log(response.status);
-      });
+     .then((response) => {
+       console.log(response.data);
+       this.getPostItsFromServer();
+     });
   }
 
-  handleEdit(id) {
+  handleUpdateClick() {
     this.setState({
-      showEdit: true,
-      editing: this.state.postIts.filter(postit => postit.id === id)[0]
+      showEdit: false
     });
   }
 
@@ -174,6 +178,7 @@ class Whiteboard extends React.Component {
             isVisible={this.state.showEdit}
             data={this.state.editing}
             onUpdatePostIt={this.handleUpdatePostIt}
+            onUpdate={this.handleUpdateClick}
           />
         </Modal>
         <Modal isOpen={this.state.confirmIsVisible} style={confirmDialogStyles}>
