@@ -37,7 +37,8 @@ class Whiteboard extends React.Component {
       showEdit: false,
       editing: {},
       beingDeleted: 0,
-      confirmIsVisible: false };
+      confirmIsVisible: false
+    };
     this.handleEdit = this.handleEdit.bind(this);
     // this.handleSave = this.handleSave.bind(this);
     this.handleAddPostIt = this.handleAddPostIt.bind(this);
@@ -155,19 +156,17 @@ class Whiteboard extends React.Component {
     return (
       <div>
         <WhiteboardHeader onAddPostIt={this.handleAddPostIt} />
-        <div className="jumbotron">
-          <div className="post-it panel panel-default">
-            <ul className="list-group">
-              {this.state.postIts.map(item => (
-                <PostIt
-                  id={item.id}
-                  data={item.postIt}
-                  onEdit={this.handleEdit}
-                  confirmIsVisible={this.state.confirmIsVisible}
-                  onDelete={this.handleDeleteClick}
-                />)) }
-            </ul>
-          </div>
+        <div className="post-its-container">
+          <ul className="list-group">
+            {this.state.postIts.map(item => (
+              <PostIt
+                id={item.id}
+                data={item.postIt}
+                onEdit={this.handleEdit}
+                confirmIsVisible={this.state.confirmIsVisible}
+                onDelete={this.handleDeleteClick}
+              />)) }
+          </ul>
         </div>
         <Modal isOpen={this.state.showEdit} style={editDialogStyles}>
           <EditDialogue
