@@ -1,4 +1,5 @@
 import React from 'react';
+import Note from './note';
 
 const generateId = () => +(new Date());
 
@@ -24,15 +25,30 @@ class EditDialogue extends React.Component {
   setColor() {
     switch (this.color.value) {
       case 'Blue':
-        return 'dodgerblue';
+        return {
+          name: 'Blue',
+          code: 'dodgerblue'
+        };
       case 'Green':
-        return 'mediumseagreen';
+        return {
+          name: 'Green',
+          code: 'mediumseagreen'
+        };
       case 'Pink':
-        return 'pink';
+        return {
+          name: 'Pink',
+          code: 'pink'
+        };
       case 'Orange':
-        return 'lightsalmon';
+        return {
+          name: 'Orange',
+          code: 'lightsalmon'
+        };
       default:
-        return 'white';
+        return {
+          name: 'Blue',
+          code: 'dodgerblue'
+        };
     }
   }
 
@@ -104,7 +120,7 @@ class EditDialogue extends React.Component {
                 <select
                   className="form-control"
                   id="color"
-                  defaultValue={this.props.data.postIt.color}
+                  defaultValue={this.props.data.postIt.color.name}
                   ref={(c) => {
                     this.color = c;
                   }}
@@ -140,10 +156,12 @@ class EditDialogue extends React.Component {
                 </div>
                 <ul className="list-group note-list">
                   {this.state.notes.map(noteItem => (
-                    <li className="list-group-item note" key={noteItem.id} id={noteItem.id}>
-                      <button className="badge" onClick={() => this.handleRemoveNote(noteItem.id)}>X</button>
-                      <p>{noteItem.value}</p>
-                    </li>
+                    <Note
+                      key={noteItem.id}
+                      id={noteItem.id}
+                      value={noteItem.value}
+                      onRemove={() => this.handleRemoveNote(noteItem.id)}
+                    />
                   ))}
                 </ul>
               </div>
@@ -152,7 +170,7 @@ class EditDialogue extends React.Component {
             <div className="form-group">
               <div className="col-lg-10 col-lg-offset-2">
                 <button type="button" className="btn btn-primary" onClick={this.updatePostIt}>Save</button>
-                <button type="reset" className="btn btn-default">Cancel</button>
+                <button type="reset" className="btn btn-default" onClick={this.props.closeModal}>Cancel</button>
               </div>
             </div>
           </fieldset>

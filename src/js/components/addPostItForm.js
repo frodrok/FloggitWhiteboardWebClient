@@ -1,4 +1,5 @@
 import React from 'react';
+import Note from './note';
 
 const generateId = () => +(new Date());
 
@@ -18,15 +19,30 @@ class AddPostItForm extends React.Component {
   setColor() {
     switch (this.color.value) {
       case 'Blue':
-        return 'dodgerblue';
+        return {
+          name: 'Blue',
+          code: 'dodgerblue'
+        };
       case 'Green':
-        return 'mediumseagreen';
+        return {
+          name: 'Green',
+          code: 'mediumseagreen'
+        };
       case 'Pink':
-        return 'pink';
+        return {
+          name: 'Pink',
+          code: 'pink'
+        };
       case 'Orange':
-        return 'lightsalmon';
+        return {
+          name: 'Orange',
+          code: 'lightsalmon'
+        };
       default:
-        return 'white';
+        return {
+          name: 'Blue',
+          code: 'dodgerblue'
+        };
     }
   }
 
@@ -131,10 +147,12 @@ class AddPostItForm extends React.Component {
               </div>
               <ul className="list-group note-list">
                 {this.state.notes.map(noteItem => (
-                  <li className="list-group-item note" key={noteItem.id} id={noteItem.id}>
-                    <button className="badge" onClick={() => this.handleRemoveNote(noteItem.id)}>X</button>
-                    <p>{noteItem.value}</p>
-                  </li>
+                  <Note
+                    key={noteItem.id}
+                    id={noteItem.id}
+                    value={noteItem.value}
+                    onRemove={() => this.handleRemoveNote(noteItem.id)}
+                  />
                 ))}
               </ul>
             </div>
