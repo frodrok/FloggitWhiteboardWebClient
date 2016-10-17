@@ -166,6 +166,7 @@ class Whiteboard extends React.Component {
           <ul className="list-group">
             {this.state.postIts.map(item => (
               <PostIt
+                key={item.id}
                 id={item.id}
                 data={item.postIt}
                 onEdit={this.handleEdit}
