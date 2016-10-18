@@ -30,11 +30,11 @@ export const getAll = () => (dispatch) => {
 export const add = postit => (dispatch) => {
   axios.post('http://localhost:8080/api/v1/postits', postit)
         .then((response) => {
-          dispatch(internalAddPostIt(postit));
-          axios.get('http://localhost:8080/api/v1/postits')
-                      .then((response) => {
-                        dispatch(internalUpdate(response.data));
-                      });
+          const newPostit = {
+            id: response.data.id,
+            postIt: postit
+          };
+          dispatch(internalAddPostIt(newPostit));
         }).catch((error) => {
           dispatch(internalError('Could not add postit'));
         });
@@ -48,3 +48,13 @@ export const remove = id => (dispatch) => {
           dispatch(internalError('Could not remove postit'));
         });
 };
+
+export const showDelete = show => ({
+  type: types.SHOW_CONFIRM_DELETE_DIALOG,
+  data: show
+});
+
+export const setBeingDeleted = id => ({
+  type: types.SET_BEING_DELETED,
+  data: id
+});
