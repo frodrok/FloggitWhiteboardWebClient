@@ -26,7 +26,6 @@ gulp.task('css', () =>
     .pipe(sourcemaps.init())
     .pipe(autoprefixer())
     .pipe(concat('master.css'))
-    .pipe(cleanCSS())
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest('dist/css'))
     .pipe(browserSync.reload({
