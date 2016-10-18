@@ -46,6 +46,7 @@ class Whiteboard extends React.Component {
     this.handleUpdateClick = this.handleUpdateClick.bind(this);
     this.handleDeleteClick = this.handleDeleteClick.bind(this);
     this.handleDeletePostIt = this.handleDeletePostIt.bind(this);
+    this.handleExit = this.handleExit.bind(this);
   }
 
   componentDidMount() {
@@ -130,6 +131,12 @@ class Whiteboard extends React.Component {
     });
   }
 
+  handleExit() {
+    this.setState({
+      showEdit: false
+    });
+  }
+
   handleDeleteClick(id) {
     // const itemToDelete = this.state.postIts.filter(item => item.id === id);
     this.setState({
@@ -181,6 +188,7 @@ class Whiteboard extends React.Component {
             data={this.state.editing}
             onUpdatePostIt={this.handleUpdatePostIt}
             onUpdate={this.handleUpdateClick}
+            onExit={this.handleExit}
           />
         </Modal>
         <Modal isOpen={this.state.confirmIsVisible} style={confirmDialogStyles}>
