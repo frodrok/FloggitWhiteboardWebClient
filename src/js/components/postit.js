@@ -5,15 +5,27 @@ const PostIt = (props) => {
     props.onEdit(props.id);
   }
 
+  function showConfirmDialogue() {
+    console.log(props.id);
+    props.onDelete(props.id);
+  }
+
   return (
-    <li>
-      <div className="panel-body" style={{ backgroundColor: props.data.color }}>
+    <li className="post-it">
+      <div className="panel-body" style={{ backgroundColor: props.data.color.code }}>
         <h6>{props.data.timeCreated}</h6>
-        <p className="title" style={{ textDecoration: 'underline' }}>{ props.data.title }</p>
-        <p className="title">{ props.data.text }</p>
-        <div className="col-lg-10 col-lg-offset-2">
+        <h5 className="title">{ props.data.title }</h5>
+        <div id="container">
+          <p className="text">{ props.data.text }</p>
+        </div>
+        <ul className="post-it-note-list">{props.data.notes.map(note => (
+          <li key={note.id}>
+            <p>{note.value}</p>
+          </li>))}
+        </ul>
+        <div className="col-lg-10 col-lg-offset-2 buttons">
           <button className="edit-button btn btn-default btn-xs" onClick={showEditDialogue}>Edit</button>
-          <button className="delete-button btn btn-danger btn-xs">Delete</button>
+          <button className="delete-button btn btn-danger btn-xs" onClick={showConfirmDialogue}>Delete</button>
         </div>
       </div>
     </li>
@@ -23,7 +35,9 @@ const PostIt = (props) => {
 PostIt.propTypes = () => ({
   id: React.PropTypes.number,
   data: React.PropTypes.shape.isRequired,
-  onEdit: React.PropTypes.func
+  onEdit: React.PropTypes.func,
+  confirmIsVisible: React.PropTypes.bool,
+  onDelete: React.PropTypes.func
 });
 
 

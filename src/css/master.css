@@ -1,3 +1,12 @@
+body {
+    min-height: 100%;
+}
+
+h1 {
+    margin-left: 15px;
+    text-align: center;
+}
+
 .note-container {
     margin: 10px;
 }
@@ -23,18 +32,97 @@
 
 .post-it {
     width: 254px;
-}
-
-.label-color {
-    display: inline-flex;
-    background: yellow;
-    width: 42px;
-    height: 8px;
-    line-height: 75pt;
-    border-radius: 3px;
-    margin: 0 3px 3px 0;
+    display: flex;
+    flex-direction: row;
 }
 
 .body {
     margin-top: 2em;
+}
+
+.note-input {
+    display: flex;
+    flex-direction: row;
+}
+
+#note-item {
+    width: 100%;
+}
+
+.col-lg-offset-2 button {
+    margin-left: 5px;
+}
+
+#add-note-button {
+    margin-left: 5px;
+}
+
+ul {
+    list-style: disc;
+    color: #1b1b1b;
+}
+
+.note-container-body .list-group, #note-label {
+    margin-bottom: 0;
+}
+
+.note-list {
+    margin-top: 10px;
+}
+
+.note .badge {
+    background-color: #cc0000;
+}
+
+.note, #note-form .form-control {
+    background-color: #ffffff;
+}
+
+.form-button {
+    width: 530px;
+    display: inline-flex;
+    justify-content: flex-end;
+}
+
+.panel-body {
+    width: 238px;
+    margin-bottom: 7px;
+}
+
+.post-its-container {
+    min-height: 600px;
+    background-color: #151515;
+    padding: 15px;
+}
+
+#add-post-it-button {
+    margin: 15px;
+}
+
+p {
+    word-break: break-all;
+    color: #1b1b1b;
+    text-align: justify;
+}
+
+.title {
+    color: #1b1b1b;
+}
+
+.buttons {
+    padding-right: 0;
+}
+
+.confirm {
+    position: relative;
+    width: 300px;
+    height: 100px;
+    left: 30px;
+    top: -30px;
+    background-color: white;
+    z-index: 11;
+}
+
+.post-it-note-list li {
+    margin-left: 14px;
 }
