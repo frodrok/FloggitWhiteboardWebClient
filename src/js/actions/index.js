@@ -35,6 +35,7 @@ export const add = postit => (dispatch) => {
             postIt: postit
           };
           dispatch(internalAddPostIt(newPostit));
+          dispatch(getAll());
         }).catch((error) => {
           dispatch(internalError('Could not add postit'));
         });

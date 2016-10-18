@@ -65,7 +65,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   handleAdd: (postit) => {
     dispatch(add(postit));
-    dispatch(getAll());
+    // dispatch(getAll());
   },
   handleDeleteClick: (id) => {
     dispatch(setBeingDeleted(id));
@@ -77,6 +77,8 @@ const mapDispatchToProps = dispatch => ({
       dispatch(showDelete(false));
     }
     dispatch(remove(id));
+    dispatch(setBeingDeleted(0));
+    dispatch(showDelete(false));
     dispatch(getAll());
   }
 });
