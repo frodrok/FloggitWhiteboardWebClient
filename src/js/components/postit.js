@@ -12,7 +12,7 @@ const PostIt = (props) => {
 
   return (
     <li className="post-it">
-      <div className="panel-body" style={{ backgroundColor: props.data.color.code }}>
+      <div className="panel-body" style={{ backgroundColor: props.data.color }}>
         <h6>{props.data.timeCreated}</h6>
         <h5 className="title">{ props.data.title }</h5>
         <div id="container">

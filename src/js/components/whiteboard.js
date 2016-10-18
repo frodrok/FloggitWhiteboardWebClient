@@ -1,20 +1,12 @@
 import React from 'react';
 import axios from 'axios';
 import Modal from 'react-modal';
-
-import {
-    connect
-} from 'react-redux';
-
-import {
-    add
-} from '../actions';
-
+import { connect } from 'react-redux';
+import { add, getAll } from '../actions';
 import PostIt from './postit';
 import WhiteboardHeader from './whiteboardHeader';
 import EditDialogue from './editDialogue';
 import ConfirmDeletePostIt from './confirmDeleteDialog';
-
 
 const confirmDialogStyles = {
   content: {
@@ -37,34 +29,19 @@ const editDialogStyles = {
 };
 
 const Whiteboard = (props) => {
-  console.log(props);
+  console.log(props.postits);
   return (< div >
-    <
-                WhiteboardHeader onAddPostIt={
-                    props.handleAdd
-                }
-    /> <
-                div className="post-its-container"
-    >
-      <
-                ul className="list-group"
-      >
-        {
-                    props.postits.map(item => (<
-                            PostIt key={
-                                item.id
-                            }
-                      id={
-                                item.id
-                            }
-                      data={
-                                item.postIt
-                            }
-                    />)) } <
-                            /ul> < /
-                            div > <
-                            /div>
-                        );
+    <WhiteboardHeader onAddPostIt={props.handleAdd} />
+    <div className="post-its-container">
+      <ul className="list-group">
+        {props.postits.map(item => (<
+            PostIt key={item.id}
+          id={item.id}
+          data={item.postIt}
+        />)) }
+        </ul>
+    < /div >
+  </div>);
 };
 
 
@@ -75,6 +52,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   handleAdd: (postit) => {
     dispatch(add(postit));
+    dispatch(getAll());
   }
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Whiteboard);

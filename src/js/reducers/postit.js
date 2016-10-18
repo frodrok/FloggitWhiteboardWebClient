@@ -6,6 +6,7 @@ const reducer = (state = initialState, action) => {
   switch (action.type) {
     case types.ADD_POSTIT:
       {
+        console.log(action.data);
         const postit = Object.assign({}, action.data);
         return [...state, postit];
       }
