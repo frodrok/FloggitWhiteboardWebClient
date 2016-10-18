@@ -43,10 +43,11 @@ class Whiteboard extends React.Component {
     this.handleAddPostIt = this.handleAddPostIt.bind(this);
     this.getPostItsFromServer = this.getPostItsFromServer.bind(this);
     this.handleUpdatePostIt = this.handleUpdatePostIt.bind(this);
+    this.handleUpdateClick = this.handleUpdateClick.bind(this);
     this.handleDeleteClick = this.handleDeleteClick.bind(this);
     this.handleDeletePostIt = this.handleDeletePostIt.bind(this);
-    this.handleUpdateClick = this.handleUpdateClick.bind(this);
   }
+
   componentDidMount() {
     this.getPostItsFromServer();
   }
@@ -71,11 +72,13 @@ class Whiteboard extends React.Component {
       }
     });
   }
-  handleAddPostIt(titleInput, description, postItColor) {
+
+  handleAddPostIt(titleInput, description, postItColor, noteList) {
     const postIt = {
       title: titleInput,
       text: description,
-      color: postItColor
+      color: postItColor,
+      notes: noteList
     };
     axios({
       method: 'post',
@@ -102,12 +105,13 @@ class Whiteboard extends React.Component {
     });
   }
 
-  handleUpdatePostIt(id, postTitle, postText, postColor) {
+  handleUpdatePostIt(id, postTitle, postText, postColor, postNotes) {
     const postIt = {
       title: postTitle,
       text: postText,
       timeCreated: this.state.editing.postIt.timeCreated,
-      color: postColor
+      color: postColor,
+      notes: postNotes
     };
     axios({
       method: 'put',
@@ -127,7 +131,7 @@ class Whiteboard extends React.Component {
   }
 
   handleDeleteClick(id) {
-     // const itemToDelete = this.state.postIts.filter(item => item.id === id);
+    // const itemToDelete = this.state.postIts.filter(item => item.id === id);
     this.setState({
       beingDeleted: id,
       confirmIsVisible: true
@@ -153,6 +157,7 @@ class Whiteboard extends React.Component {
       });
     }
   }
+
   render() {
     return (
       <div>
@@ -161,6 +166,7 @@ class Whiteboard extends React.Component {
           <ul className="list-group">
             {this.state.postIts.map(item => (
               <PostIt
+                key={item.id}
                 id={item.id}
                 data={item.postIt}
                 onEdit={this.handleEdit}
@@ -185,7 +191,7 @@ class Whiteboard extends React.Component {
           />
         </Modal>
       </div>
-  );
+    );
   }
 }
 

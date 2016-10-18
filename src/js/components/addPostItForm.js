@@ -1,95 +1,187 @@
 import React from 'react';
+import Note from './note';
 
-const AddPostItForm = (props) => {
-  let title;
-  let text;
-  let color;
+const generateId = () => +(new Date());
 
-  function setColor() {
-    switch (color.value) {
+class AddPostItForm extends React.Component {
+
+  constructor() {
+    super();
+    this.state = {
+      notes: []
+    };
+    this.setColor = this.setColor.bind(this);
+    this.handleAddNote = this.handleAddNote.bind(this);
+    this.handleRemoveNote = this.handleRemoveNote.bind(this);
+    this.savePostIt = this.savePostIt.bind(this);
+  }
+
+  setColor() {
+    switch (this.color.value) {
       case 'Blue':
-        return 'dodgerblue';
+        return {
+          name: 'Blue',
+          code: 'dodgerblue'
+        };
       case 'Green':
-        return 'mediumseagreen';
+        return {
+          name: 'Green',
+          code: 'mediumseagreen'
+        };
       case 'Pink':
-        return 'pink';
+        return {
+          name: 'Pink',
+          code: 'pink'
+        };
       case 'Orange':
-        return 'lightsalmon';
+        return {
+          name: 'Orange',
+          code: 'lightsalmon'
+        };
       default:
-        return 'white';
+        return {
+          name: 'Blue',
+          code: 'dodgerblue'
+        };
     }
   }
 
-  function savePostIt() {
-    const postTitle = title.value.trim();
-    const postText = text.value.trim();
-    const postColor = setColor();
-    props.onAddPostIt(postTitle, postText, postColor);
+  title;
+  text;
+  color;
+  noteInput;
+
+  handleAddNote() {
+    const noteText = this.noteInput.value.trim();
+    let note;
+    if (noteText.length > 0) {
+      note = { id: generateId(), value: noteText };
+      this.noteInput.value = '';
+      this.setState({ notes: [...this.state.notes, note] });
+    }
   }
 
-  return (
-    <form className="form-horizontal">
-      <fieldset>
-        <legend>Floggit</legend>
-        <div className="form-group">
-          <label htmlFor="inputTitle" className="col-lg-2 control-label">Title</label>
-          <div className="col-lg-10">
-            <input type="text" className="form-control" id="inputTitle" placeholder="Title" ref={(c) => { title = c; }} />
-          </div>
-        </div>
+  handleRemoveNote(id) {
+    this.setState({ notes: this.state.notes.filter(item => item.id !== id) });
+  }
 
-        <div className="form-group">
-          <label htmlFor="description" className="col-lg-2 control-label">Description</label>
-          <div className="col-lg-10">
-            <textarea className="form-control" id="description" placeholder="Description" ref={(c) => { text = c; }} />
-          </div>
-        </div>
+  savePostIt() {
+    const postTitle = this.title.value.trim();
+    const postText = this.text.value.trim();
+    const postColor = this.setColor();
+    this.props.onAddPostIt(postTitle, postText, postColor, this.state.notes);
+  }
 
-        <div className="form-group">
-          <label htmlFor="color" className="col-lg-2 control-label">Color</label>
-          <div className="col-lg-10">
-            <select className="form-control" id="color" ref={(c) => { color = c; }}>
-              <option>Blue</option>
-              <option>Green</option>
-              <option>Pink</option>
-              <option>Orange</option>
-            </select>
-          </div>
-        </div>
-
-        <div className="form-group" id="note-form">
-          <label htmlFor="note-item" className="col-lg-2 control-label" id="note-label">Note</label>
-          <div className="note-container-body col-lg-10">
-            <div className="note-input">
-              <input type="text" id="note-item" placeholder="Note" />
-              <button type="button" id="add-note-button" className="btn btn-primary btn-sm">Add</button>
+  render() {
+    return (
+      <form className="form-horizontal">
+        <fieldset>
+          <legend>Floggit</legend>
+          <div className="form-group">
+            <label htmlFor="inputTitle" className="col-lg-2 control-label">Title</label>
+            <div className="col-lg-10">
+              <input
+                type="text"
+                className="form-control"
+                id="inputTitle"
+                placeholder="Title"
+                ref={(c) => {
+                  this.title = c;
+                }}
+              />
             </div>
-            <ul className="list-group note-list">
-              <li className="list-group-item note">
-                <span className="badge">X</span>
-                Note 1
-              </li>
-              <li className="list-group-item note">
-                <span className="badge">X</span>
-                Note 2
-              </li>
-            </ul>
           </div>
-        </div>
 
-        <div className="form-group">
-          <div className="col-lg-10 col-lg-offset-2">
-            <button type="button" className="btn btn-primary" onClick={() => { savePostIt(); props.closeModal(); }}>Save
-            </button>
-            <button type="reset" className="btn btn-default" onClick={props.closeModal}>Cancel</button>
+          <div className="form-group">
+            <label htmlFor="description" className="col-lg-2 control-label">Description</label>
+            <div className="col-lg-10">
+              <textarea
+                className="form-control"
+                id="description"
+                placeholder="Description"
+                ref={(c) => {
+                  this.text = c;
+                }}
+              />
+            </div>
           </div>
-        </div>
-      </fieldset>
-    </form>);
-};
+
+          <div className="form-group">
+            <label htmlFor="color" className="col-lg-2 control-label">Color</label>
+            <div className="col-lg-10">
+              <select
+                className="form-control"
+                id="color"
+                ref={(c) => {
+                  this.color = c;
+                }}
+              >
+                <option>Blue</option>
+                <option>Green</option>
+                <option>Pink</option>
+                <option>Orange</option>
+              </select>
+            </div>
+          </div>
+
+          <div className="form-group" id="note-form">
+            <label htmlFor="note-item" className="col-lg-2 control-label" id="note-label">Note</label>
+            <div className="note-container-body col-lg-10">
+              <div className="note-input">
+                <input
+                  type="text"
+                  id="note-item"
+                  placeholder="Note"
+                  ref={(c) => {
+                    this.noteInput = c;
+                  }}
+                />
+                <button
+                  type="button"
+                  id="add-note-button"
+                  className="btn btn-primary btn-sm"
+                  onClick={this.handleAddNote}
+                >
+                  Add
+                </button>
+              </div>
+              <ul className="list-group note-list">
+                {this.state.notes.map(noteItem => (
+                  <Note
+                    key={noteItem.id}
+                    id={noteItem.id}
+                    value={noteItem.value}
+                    onRemove={() => this.handleRemoveNote(noteItem.id)}
+                  />
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          <div className="form-group">
+            <div className="col-lg-10 col-lg-offset-2">
+              <button
+                type="button"
+                className="btn btn-primary"
+                onClick={() => {
+                  this.savePostIt();
+                  this.props.closeModal();
+                }}
+              >
+                Save
+              </button>
+              <button type="reset" className="btn btn-default" onClick={this.props.closeModal}>Cancel</button>
+            </div>
+          </div>
+        </fieldset>
+      </form>
+    );
+  }
+}
 
 AddPostItForm.propTypes = {
-  closeModal: React.PropTypes.func
+  closeModal: React.PropTypes.func,
+  onAddPostIt: React.PropTypes.func
 };
 
 export default AddPostItForm;

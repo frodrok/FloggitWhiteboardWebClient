@@ -12,12 +12,17 @@ const PostIt = (props) => {
 
   return (
     <li className="post-it">
-      <div className="panel-body" style={{ backgroundColor: props.data.color }}>
+      <div className="panel-body" style={{ backgroundColor: props.data.color.code }}>
         <h6>{props.data.timeCreated}</h6>
         <h5 className="title">{ props.data.title }</h5>
-        <div id="container" >
-          <p className="text" >{ props.data.text }</p>
+        <div id="container">
+          <p className="text">{ props.data.text }</p>
         </div>
+        <ul className="post-it-note-list">{props.data.notes.map(note => (
+          <li key={note.id}>
+            <p>{note.value}</p>
+          </li>))}
+        </ul>
         <div className="col-lg-10 col-lg-offset-2 buttons">
           <button className="edit-button btn btn-default btn-xs" onClick={showEditDialogue}>Edit</button>
           <button className="delete-button btn btn-danger btn-xs" onClick={showConfirmDialogue}>Delete</button>
