@@ -172,7 +172,7 @@ class Whiteboard extends React.Component {
                 onEdit={this.handleEdit}
                 confirmIsVisible={this.state.confirmIsVisible}
                 onDelete={this.handleDeleteClick}
-              />)) }
+              />)).reverse() }
           </ul>
         </div>
         <Modal isOpen={this.state.showEdit} style={editDialogStyles}>
