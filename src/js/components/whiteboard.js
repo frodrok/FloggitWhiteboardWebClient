@@ -90,7 +90,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(remove(id));
     dispatch(setBeingDeleted(0));
     dispatch(showDelete(false));
-    dispatch(getAll());
+    // dispatch(getAll());
   },
   handleEdit: (postit) => {
     dispatch(showEdit(true));
