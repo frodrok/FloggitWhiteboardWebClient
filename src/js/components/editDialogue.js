@@ -75,9 +75,10 @@ class EditDialogue extends React.Component {
   updatePostIt() {
     const postTitle = this.title.value.trim();
     const postText = this.text.value.trim();
-    const postColor = this.setColor();
-    this.props.onUpdatePostIt(this.props.data.id, postTitle, postText, postColor, this.state.notes);
-    this.props.onUpdate();
+    const postColor = this.setColor().code;
+    const timeCreated = this.props.data.postIt.timeCreated;
+    this.props.onUpdatePostIt(this.props.data.id, postTitle, postText, postColor, this.state.notes, timeCreated);
+    // this.props.onUpdate();
   }
 
   exitForm() {

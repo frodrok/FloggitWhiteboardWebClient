@@ -45,8 +45,16 @@ export const remove = id => (dispatch) => {
   axios.delete(`http://localhost:8080/api/v1/postits/${id}`)
         .then((response) => {
           dispatch(internalRemove(id));
+          dispatch(getAll());
         }).catch((error) => {
           dispatch(internalError('Could not remove postit'));
+        });
+};
+
+export const update = (id, postit) => (dispatch) => {
+  axios.put(`http://localhost:8080/api/v1/postits/${id}`, postit)
+        .then((response) => {
+          dispatch(getAll());
         });
 };
 
@@ -57,5 +65,15 @@ export const showDelete = show => ({
 
 export const setBeingDeleted = id => ({
   type: types.SET_BEING_DELETED,
+  data: id
+});
+
+export const showEdit = show => ({
+  type: types.SHOW_EDIT_DIALOG,
+  data: show
+});
+
+export const setBeingEdited = id => ({
+  type: types.SET_BEING_EDITED,
   data: id
 });

@@ -1,8 +1,7 @@
 import React from 'react';
-import axios from 'axios';
 import Modal from 'react-modal';
 import { connect } from 'react-redux';
-import { add, getAll, remove, setBeingDeleted, showDelete } from '../actions';
+import { add, getAll, remove, setBeingDeleted, showDelete, showEdit, setBeingEdited, update } from '../actions';
 import PostIt from './postit';
 import WhiteboardHeader from './whiteboardHeader';
 import EditDialogue from './editDialogue';
@@ -41,6 +40,7 @@ const Whiteboard = (props) => {
             data={item.postIt}
             confirmIsVisible={props.confirmIsVisible}
             onDelete={props.handleDeleteClick}
+            onEdit={props.handleEdit}
           />)) }
         </ul>
       < /div >
@@ -52,6 +52,15 @@ const Whiteboard = (props) => {
           onDelete={props.handleDeletePostIt}
         />
       </Modal>
+
+      <Modal isOpen={props.showEdit} style={editDialogStyles}>
+        <EditDialogue
+          isVisible={props.showEdit}
+          data={props.editing}
+          onUpdatePostIt={props.handleUpdatePostIt}
+          onUpdate={props.handleUpdateClick}
+        />
+</Modal>
     </div>
 );
 };
@@ -59,7 +68,9 @@ const Whiteboard = (props) => {
 const mapStateToProps = state => ({
   postits: state.postits,
   confirmIsVisible: state.ui.confirmIsVisible,
-  beingDeleted: state.ui.beingDeleted
+  beingDeleted: state.ui.beingDeleted,
+  showEdit: state.edit.showEdit,
+  editing: state.edit.editing
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -80,6 +91,27 @@ const mapDispatchToProps = dispatch => ({
     dispatch(setBeingDeleted(0));
     dispatch(showDelete(false));
     dispatch(getAll());
+  },
+  handleEdit: (postit) => {
+    dispatch(showEdit(true));
+    dispatch(setBeingEdited(postit));
+  },
+  handleUpdatePostIt: (id, postTitle, postText, postColor, postNotes, timeCreated) => {
+    console.log(postColor);
+    let notes = [];
+    if (postNotes !== undefined) {
+      notes = postNotes;
+    }
+    const postIt = {
+      title: postTitle,
+      text: postText,
+      timeCreated,
+      color: postColor,
+      notes
+    };
+    dispatch(update(id, postIt));
+    dispatch(showEdit(false));
+    dispatch(setBeingDeleted({}));
   }
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Whiteboard);
