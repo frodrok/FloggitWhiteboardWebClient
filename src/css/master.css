@@ -99,7 +99,7 @@ ul {
     margin: 15px;
 }
 
-p {
+p, h5 {
     word-break: break-all;
     color: #1b1b1b;
     text-align: justify;
@@ -125,4 +125,14 @@ p {
 
 .post-it-note-list li {
     margin-left: 14px;
+}
+
+.list-group {
+  display: flex;
+  flex-wrap: wrap;
+  flex-grow: 1;
+}
+
+.post-it {
+  margin: 10px;
 }
