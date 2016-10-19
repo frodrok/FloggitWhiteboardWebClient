@@ -14,6 +14,7 @@ class EditDialogue extends React.Component {
     this.handleAddNote = this.handleAddNote.bind(this);
     this.handleRemoveNote = this.handleRemoveNote.bind(this);
     this.updatePostIt = this.updatePostIt.bind(this);
+    this.exitForm = this.exitForm.bind(this);
   }
 
   componentWillMount() {
@@ -77,6 +78,10 @@ class EditDialogue extends React.Component {
     const postColor = this.setColor();
     this.props.onUpdatePostIt(this.props.data.id, postTitle, postText, postColor, this.state.notes);
     this.props.onUpdate();
+  }
+
+  exitForm() {
+    this.props.onExit();
   }
 
   render() {
@@ -170,7 +175,7 @@ class EditDialogue extends React.Component {
             <div className="form-group">
               <div className="col-lg-10 col-lg-offset-2">
                 <button type="button" className="btn btn-primary" onClick={this.updatePostIt}>Save</button>
-                <button type="reset" className="btn btn-default" onClick={this.props.closeModal}>Cancel</button>
+                <button type="reset" className="btn btn-default" onClick={this.exitForm}>Cancel</button>
               </div>
             </div>
           </fieldset>
