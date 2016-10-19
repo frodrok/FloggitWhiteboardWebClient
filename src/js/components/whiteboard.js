@@ -79,7 +79,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(remove(id));
     dispatch(setBeingDeleted(0));
     dispatch(showDelete(false));
-    dispatch(getAll());
+    // dispatch(getAll());
   }
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Whiteboard);
