@@ -69,7 +69,8 @@ class AddPostItForm extends React.Component {
     const postTitle = this.title.value.trim();
     const postText = this.text.value.trim();
     const postColor = this.setColor();
-    this.props.onAddPostIt(postTitle, postText, postColor, this.state.notes);
+    const postIt = { title: postTitle, text: postText, color: postColor.code, notes: this.state.notes };
+    this.props.onAddPostIt(postIt);
   }
 
   render() {
