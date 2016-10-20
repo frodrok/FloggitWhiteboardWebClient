@@ -28,7 +28,6 @@ const editDialogStyles = {
 };
 
 const Whiteboard = (props) => {
-  console.log(props.postits);
   return (
     < div >
       <WhiteboardHeader onAddPostIt={props.handleAdd} />
@@ -59,6 +58,7 @@ const Whiteboard = (props) => {
           data={props.editing}
           onUpdatePostIt={props.handleUpdatePostIt}
           onUpdate={props.handleUpdateClick}
+          onExit={props.closeEditDialog}
         />
 </Modal>
     </div>
@@ -112,6 +112,11 @@ const mapDispatchToProps = dispatch => ({
     dispatch(update(id, postIt));
     dispatch(showEdit(false));
     dispatch(setBeingDeleted({}));
-  }
+  },
+        closeEditDialog: () => {
+         dispatch(showEdit(false));
+    }
+
+
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Whiteboard);
