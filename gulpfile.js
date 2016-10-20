@@ -10,15 +10,25 @@ const concat = require('gulp-concat');
 const sourcemaps = require('gulp-sourcemaps');
 const autoprefixer = require('gulp-autoprefixer');
 const cleanCSS = require('gulp-clean-css');
-const browserSync = require('browser-sync').create();
+const server = require('gulp-server-livereload');
+// const browserSync = require('browser-sync').create();
 
-gulp.task('browserSync', () =>
-  browserSync.init({
-    server: {
-      baseDir: 'dist'
-    }
-  })
-);
+// gulp.task('browserSync', () =>
+//   browserSync.init({
+//     server: {
+//       baseDir: 'dist'
+//     }
+//   })
+// );
+
+gulp.task('webserver', () => {
+  gulp.src('./dist')
+  .pipe(server({
+    livereload: true,
+    directoryListing: false,
+    open: true
+  }));
+});
 
 gulp.task('css', () =>
   // gulp.src(['./src/css/bootstrap-slate.css', './src/css/default.css'])
@@ -26,12 +36,9 @@ gulp.task('css', () =>
     .pipe(sourcemaps.init())
     .pipe(autoprefixer())
     .pipe(concat('master.css'))
-    .pipe(cleanCSS())
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest('dist/css'))
-    .pipe(browserSync.reload({
-      stream: true
-    }))
+
 );
 
 gulp.task('html', () => gulp.src('./src/**/*.html')
@@ -39,9 +46,7 @@ gulp.task('html', () => gulp.src('./src/**/*.html')
     collapseWhitespace: true
   }))
   .pipe(gulp.dest('dist'))
-  .pipe(browserSync.reload({
-    stream: true
-  }))
+
 );
 
 gulp.task('javascript', () => browserify(
@@ -55,12 +60,9 @@ gulp.task('javascript', () => browserify(
     .pipe(sourcemaps.init({ loadMaps: true }))
     .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest('./dist/js'))
-    .pipe(browserSync.reload({
-      stream: true
-    }))
 );
 
-gulp.task('default', ['browserSync', 'html', 'css', 'javascript'], () => {
+gulp.task('default', ['webserver', 'html', 'css', 'javascript'], () => {
   gulp.watch('./src/css/**/*.css', ['css']);
   gulp.watch('./src/js/**/*.js*', ['javascript']);
   gulp.watch('./src/**/*.html', ['html']);

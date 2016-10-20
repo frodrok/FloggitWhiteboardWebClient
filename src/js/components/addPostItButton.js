@@ -10,7 +10,6 @@ const customStyles = {
     width: '50%'
   }
 };
-
 class AddPostItButton extends React.Component {
 
   constructor() {

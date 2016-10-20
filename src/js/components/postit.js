@@ -2,7 +2,17 @@ import React from 'react';
 
 const PostIt = (props) => {
   function showEditDialogue() {
-    props.onEdit(props.id);
+    const postit = {
+      id: props.id,
+      postIt: {
+        title: props.data.title,
+        text: props.data.text,
+        timeCreated: props.data.timeCreated,
+        notes: props.data.notes,
+        color: props.data.color
+      }
+    };
+    props.onEdit(postit);
   }
 
   function showConfirmDialogue() {
